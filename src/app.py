@@ -147,7 +147,7 @@ def create_entry():
     db.session.add(geofence)
     db.session.commit()
     geofence_data = {
-        "description": "Journal entry",
+        "description": str(user.id),
         "type": "circle",
         "coordinates": [longitude, latitude],
         "radius": 100,
@@ -159,9 +159,18 @@ def create_entry():
     db.session.add(entry)
     db.session.commit()
     return success_response(entry.serialize())
+
+@app.route("/entries/", methods=["GET"])
+def view_entries():
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    entries = Entry.query.filter_by(user_id=user.id)
+    return success_response([e.serialize() for e in entries])
     
-
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
