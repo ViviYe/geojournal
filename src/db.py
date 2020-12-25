@@ -7,20 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-"""
-Talking points:
-1. Our auth approach will be imbedding session tokens into User model for simplicity.
-2. We choose to hash passwords to not store plain text in the database
-2b. We add salting to our hashing algoritm for additional security
-3. session_expiration is db.DateTime object
-4. Use hashlib sha1 algorithm for random strings for tokens
-5. bcrypt.checkpw to verify our passwords
-6. renew_session to set our session tokens that expire in 1 day and set access token
-
-Then move on to users_dao.py
-"""
-
-
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
@@ -62,5 +48,21 @@ class User(db.Model):
 class Entry(db.Model):
     __tablename__ = "entry"
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    title = db.Column(db.String)
+    description = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+
+    def __init__(self, **kwargs):
+        self.title = kwargs.get("title")
+        self.description = kwargs.get("description", "")
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+        }
+
 
 

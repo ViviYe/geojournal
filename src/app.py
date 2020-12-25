@@ -28,9 +28,6 @@ def extract_token(request):
         return False, json.dumps({"error": "Invalid authorization header."})
 
     return True, bearer_token
-    """
-    Move on to secret_message route at bottom
-    """
 
 
 @app.route("/")
@@ -59,9 +56,6 @@ def register_account():
             "update_token": user.update_token,
         }
     )
-    """
-    Move on to extract_token above routes
-    """
 
 
 @app.route("/login/", methods=["POST"])
@@ -85,9 +79,6 @@ def login():
             "update_token": user.update_token,
         }
     )
-    """
-    Test on Postman then move to renew_session in users_dao.py
-    """
 
 
 @app.route("/session/", methods=["POST"])
@@ -109,14 +100,6 @@ def update_session():
             "update_token": user.update_token,
         }
     )
-    """
-    Test on Postman then we are done!
-
-    Talk about how including authentication in the Hack Challenge is optional
-    and only recommended after finishing the actual app.
-
-    Can alternatively use OAuth.
-    """
 
 
 @app.route("/secret/", methods=["GET"])
@@ -131,14 +114,6 @@ def secret_message():
         return json.dumps({"error": "Invalid session token."})
 
     return json.dumps({"message": "You have successfully implemented sessions."})
-    """
-    Move to Postman to test routes
-    - test no Authorization provided
-    - test invalid token
-    - test proper token
-
-    Move on to verify_credentials method in users_dao
-    """
 
 
 if __name__ == "__main__":

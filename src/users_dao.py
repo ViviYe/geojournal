@@ -1,10 +1,6 @@
 from db import db
 from db import User
 
-"""
-"""
-
-
 def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
@@ -24,10 +20,6 @@ def verify_credentials(email, password):
         return False, None
 
     return optional_user.verify_password(password), optional_user
-    """
-    Move on to login route in app.py
-    """
-
 
 def create_user(email, password):
     optional_user = get_user_by_email(email)
@@ -41,9 +33,6 @@ def create_user(email, password):
     db.session.commit()
 
     return True, user
-    """
-    Move on to register_account route in app.py
-    """
 
 
 def renew_session(update_token):
@@ -55,7 +44,3 @@ def renew_session(update_token):
     user.renew_session()
     db.session.commit()
     return user
-    """
-    Move to update_session in app.py
-    """
-
