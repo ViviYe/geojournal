@@ -1,12 +1,21 @@
 import json
-
-from db import db
+import os
+from radar import RadarClient
+from db import db, Entry, Geofence
 from flask import Flask
 from flask import request
+import datetime
 import users_dao
+from dotenv import load_dotenv
+load_dotenv()
 
-db_filename = "auth.db"
+db_filename = "geojournal.db"
 app = Flask(__name__)
+
+# https://radar-python.readthedocs.io/en/latest/
+RADAR_SECRET_KEY = os.getenv("RADAR_SECRET_KEY")
+radar = RadarClient(RADAR_SECRET_KEY)
+
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -114,24 +123,45 @@ def update_session():
 @app.route("/secret/", methods=["GET"])
 def secret_message():
     success, session_token = extract_token(request)
-
     if not success:
         return session_token
-
     user = users_dao.get_user_by_session_token(session_token)
     if not user or not user.verify_session_token(session_token):
         return json.dumps({"error": "Invalid session token."})
-
     return json.dumps({"message": "You have successfully implemented sessions."})
 
 @app.route("/entry/", methods=["POST"])
 def create_entry():
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
     body = json.loads(request.data)
     longitude = body.get("longitude")
     latitude = body.get("latitude")
     title = body.get("title")
     description = body.get("description")
+    geofence = Geofence()
+    db.session.add(geofence)
+    db.session.commit()
+    # geofence_data = {
+    #     "description": "Journal entry",
+    #     "type": "circle",
+    #     "coordinates": [longitude, latitude],
+    #     "radius": 100,
+    #     # "tag": "store",
+    #     "externalId": str(geofence.id),
+    # }
+    # radar_geofence = radar.geofences.create(data=geofence_data)
+    print("user", user)
+    entry = Entry(user_id=user.id, title=title, description=description, created_at=datetime.datetime.now(), longitude=longitude, latitude=latitude, geo_id=geofence.id)
+    db.session.add(entry)
+    db.session.commit()
+    return success_response(entry.serialize())
     
+
 
 
 if __name__ == "__main__":
