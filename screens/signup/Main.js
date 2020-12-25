@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, SafeAreaView } from "react-native";
 import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
+import { Avatar } from 'react-native-elements';
 
 //path to logo
 //the shade of white we are using
@@ -13,19 +14,32 @@ const WHITE = "white";
  */
 export default function Main({ navigation }) {
   return (
-    <View
+    <SafeAreaView
       style={{
         backgroundColor: "#BCBFA7",
         flex: 1,
-        alignItems: "center",
-        paddingTop: "60%",
       }}
     >
-      <View>
+    <View style={{height: "20%", justifyContent:'center', paddingHorizontal:'5%', flexDirection:"row"}}>
+    <Avatar
+            size="large"
+            rounded
+            icon={{name: 'user', type: 'font-awesome'}}
+            onPress={()=> navigation.push("account")}
+          />
+    <View style={{width: '60%'}}/>
+    <Avatar
+            size="large"
+            rounded
+            icon={{name: 'plus', type: 'font-awesome'}}
+            onPress={()=> navigation.push("account")}
+          />
+     </View>
+      <View style={{alignItems: "center"}}>
         <Text style={{ fontSize: 40, color: "#F6F5D4", fontFamily: "Roboto" }}>
-          Main page
+          Map
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

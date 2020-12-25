@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-
+import { LoggedInStack } from "./navigation/LoggedInStack";
 import * as React from "react";
 
 import startScreen from "../screens/signup/Start";
