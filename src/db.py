@@ -53,18 +53,31 @@ class Entry(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     longitude = db.Column(db.Integer, nullable=False)
     latitude = db.Column(db.Integer, nullable=False)
+    geo_id = db.Column(db.Integer, nullable=True)
 
     def __init__(self, **kwargs):
+        self.user_id = kwargs.get("user_id")
         self.title = kwargs.get("title")
         self.description = kwargs.get("description", "")
+        self.created_at = kwargs.get("created_at")
+        self.longitude = kwargs.get("longitude")
+        self.latitude = kwargs.get("latitude")
+        self.geo_id = kwargs.get("geo_id")
     
     def serialize(self):
         return {
             "id": self.id,
             "title": self.title,
             "description": self.description,
-            "created_at": self.created_at
+            "created_at": str(self.created_at),
+            "longitude": self.longitude,
+            "latitude": self.latitude,
+            "geo_id": self.geo_id
         }
+
+class Geofence(db.Model):
+    __tablename__ = "geofence"
+    id = db.Column(db.Integer, primary_key=True)
 
 
 
