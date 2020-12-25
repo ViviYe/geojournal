@@ -124,11 +124,14 @@ def secret_message():
 
     return json.dumps({"message": "You have successfully implemented sessions."})
 
-# @app.route("/entry/", methods=["POST"])
-# def create_entry():
-#     body = json.loads(request.data)
-#     email = body.get("email")
-#     password = body.get("password")
+@app.route("/entry/", methods=["POST"])
+def create_entry():
+    body = json.loads(request.data)
+    longitude = body.get("longitude")
+    latitude = body.get("latitude")
+    title = body.get("title")
+    description = body.get("description")
+    
 
 
 if __name__ == "__main__":
