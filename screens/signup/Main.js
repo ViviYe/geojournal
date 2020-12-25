@@ -31,7 +31,7 @@ export default function Main({ navigation }) {
     <Avatar
             size="large"
             rounded
-            icon={{name: 'plus', type: 'font-awesome'}}
+            icon={{name: 'book', type: 'font-awesome'}}
             onPress={()=> navigation.push("account")}
           />
      </View>
