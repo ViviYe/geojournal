@@ -3,8 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 
 import startScreen from "../screens/signup/Start";
-import SignIn from "../screens/signup/SignIn";
-import SignUp from "../screens/signup/SignUp";
+import SignIn from "../screens/signup/Signin";
+import SignUp from "../screens/signup/Signup";
 
 const Stack = createStackNavigator();
 export function LoggedOutStack() {
