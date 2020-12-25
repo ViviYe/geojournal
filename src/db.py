@@ -10,12 +10,11 @@ db = SQLAlchemy()
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
-
-    # User information
+    device_id = db.Column(db.String, nullable=True, unique=True)
+    user_id = db.Column(db.String, nullable=True, unique=True)
+    device_type = db.Column(db.String, nullable=True, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
     password_digest = db.Column(db.String, nullable=False)
-
-    # Session information
     session_token = db.Column(db.String, nullable=False, unique=True)
     session_expiration = db.Column(db.DateTime, nullable=False)
     update_token = db.Column(db.String, nullable=False, unique=True)
@@ -52,6 +51,8 @@ class Entry(db.Model):
     title = db.Column(db.String)
     description = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
+    longitude = db.Column(db.Integer, nullable=False)
+    latitude = db.Column(db.Integer, nullable=False)
 
     def __init__(self, **kwargs):
         self.title = kwargs.get("title")
@@ -62,6 +63,7 @@ class Entry(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
+            "created_at": self.created_at
         }
 
 
