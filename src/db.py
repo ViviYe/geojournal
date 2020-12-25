@@ -59,3 +59,8 @@ class User(db.Model):
     def verify_update_token(self, update_token):
         return update_token == self.update_token
 
+class Entry(db.Model):
+    __tablename__ = "entry"
+    id = db.Column(db.Integer, primary_key=True)
+
+
