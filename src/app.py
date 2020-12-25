@@ -146,16 +146,15 @@ def create_entry():
     geofence = Geofence()
     db.session.add(geofence)
     db.session.commit()
-    # geofence_data = {
-    #     "description": "Journal entry",
-    #     "type": "circle",
-    #     "coordinates": [longitude, latitude],
-    #     "radius": 100,
-    #     # "tag": "store",
-    #     "externalId": str(geofence.id),
-    # }
-    # radar_geofence = radar.geofences.create(data=geofence_data)
-    print("user", user)
+    geofence_data = {
+        "description": "Journal entry",
+        "type": "circle",
+        "coordinates": [longitude, latitude],
+        "radius": 100,
+        # "tag": "store",
+        "externalId": str(geofence.id),
+    }
+    radar_geofence = radar.geofences.create(data=geofence_data)
     entry = Entry(user_id=user.id, title=title, description=description, created_at=datetime.datetime.now(), longitude=longitude, latitude=latitude, geo_id=geofence.id)
     db.session.add(entry)
     db.session.commit()
