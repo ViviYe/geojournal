@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { LoggedOutStack } from "./navigation/LoggedOutStack";
+import { LoggedInStack } from "./navigation/LoggedInStack";
 import { StartScreen } from "./screens/signup/Start";
 import useCachedResources from "./hooks/useCachedResources";
 
@@ -12,7 +13,7 @@ export default function App() {
     return null;
   } else {
     return <NavigationContainer>
-      {<LoggedOutStack />}
+      {<LoggedInStack />}
       </NavigationContainer>;
   }
 }
