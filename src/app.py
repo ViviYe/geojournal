@@ -53,10 +53,10 @@ def register_account():
     if user_id is None or device_id is None or device_type is None:
         return json.dumps({"error": "Need to supply user_id, device_id, and device_type."})
 
-    created, user = users_dao.create_user(email, password)
+    created, user = users_dao.create_user(email, password, user_id, device_id, device_type)
 
     if not created:
-        return json.dumps({"error": "User already exists."})
+        return failure_response("User already exists.")
 
     return json.dumps(
         {

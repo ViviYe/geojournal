@@ -53,6 +53,7 @@ class Entry(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     longitude = db.Column(db.Integer, nullable=False)
     latitude = db.Column(db.Integer, nullable=False)
+    geo_id = db.Column(db.Integer, nullable=True)
 
     def __init__(self, **kwargs):
         self.title = kwargs.get("title")
