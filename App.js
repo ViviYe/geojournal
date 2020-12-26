@@ -5,15 +5,29 @@ import { StyleSheet, Text, View } from "react-native";
 import { LoggedOutStack } from "./navigation/LoggedOutStack";
 import { LoggedInStack } from "./navigation/LoggedInStack";
 import { StartScreen } from "./screens/signup/Start";
+import { isSignedIn } from "./api/auth"
 import useCachedResources from "./hooks/useCachedResources";
 
 export default function App() {
+  const [checkedSignIn, setChecked] = React.useState(false);
+  const [signedIn, setSignedIn] = React.useState(false);
   const isLoadingComplete = useCachedResources();
-  if (!isLoadingComplete) {
+
+  /** If user token is present, go directly to Logged in view */
+  React.useEffect(() => {
+    isSignedIn()
+      .then((res) => {
+        setChecked(true);
+        setSignedIn(res);
+      })
+      .catch((err) => alert("An error occurred"));
+  }, []);
+
+  if (!isLoadingComplete || !checkedSignIn) {
     return null;
   } else {
     return <NavigationContainer>
-      {<LoggedOutStack />}
+      {signedIn ? <LoggedInStack /> : <LoggedOutStack />}
       </NavigationContainer>;
   }
 }
