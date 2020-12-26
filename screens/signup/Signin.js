@@ -16,6 +16,7 @@ const WHITE = "white";
 export default function SignIn({ navigation }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
   return (
     <View
       style={{

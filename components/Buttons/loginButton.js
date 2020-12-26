@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     wrapper: {
         marginBottom: 20,
         display: 'flex',
-        borderWidth: 2,
+  
         borderRadius: 40,
         borderColor: 'white',
         justifyContent: 'center',
