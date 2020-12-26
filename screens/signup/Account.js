@@ -26,7 +26,7 @@ export default function StartScreen({ navigation }) {
           />
         <Text style={{ fontSize: 20, color: "#F6F5D4", fontFamily: "Roboto", marginVertical:'5%' }}>Name Placeholder</Text>
       </View>
-      <View style={{backgroundColor}}>
+      <View style={{}}>
 
       </View>
       
