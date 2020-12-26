@@ -32,7 +32,7 @@ export default function Main({ navigation }) {
             size="large"
             rounded
             icon={{name: 'book', type: 'font-awesome'}}
-            onPress={()=> navigation.push("account")}
+            onPress={()=> console.log("modal")}
           />
      </View>
       <View style={{alignItems: "center"}}>
