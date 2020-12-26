@@ -41,12 +41,12 @@ class User(db.Model):
         self.renew_session()
 
     def befriend(self, friend):
-        if friend not in self.friends and hasattr(self, 'friends'):
+        if hasattr(self, 'friends') and friend not in self.friends:
             self.friends.append(friend)
             friend.friends.append(self)
 
     def unfriend(self, friend):
-        if friend in self.friends and hasattr(self, 'friends'):
+        if hasattr(self, 'friends') and friend in self.friends:
             self.friends.remove(friend)
             friend.friends.remove(self)
 
