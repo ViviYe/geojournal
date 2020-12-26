@@ -87,6 +87,7 @@ class Entry(db.Model):
     __tablename__ = "entry"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    author = relationship("User", backref="entries")
     title = db.Column(db.String)
     description = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
@@ -106,6 +107,7 @@ class Entry(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "author": self.author.email,
             "title": self.title,
             "description": self.description,
             "created_at": str(self.created_at),
