@@ -2,7 +2,7 @@ import json
 import os
 import requests
 from radar import RadarClient
-from db import db, Entry
+from db import db, Entry, User
 from flask import Flask
 from flask import request
 import datetime
@@ -158,7 +158,33 @@ def view_entries():
     # return failure_response("not yet implemented!")
 
 
-    
+@app.route("/friends/", methods=["POST"])
+def add_friends():
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    body = json.loads(request.data)
+    emails = body.get("friends")
+    for email in emails:
+        query = User.query.filter_by(email=email)
+        if query is not None:
+            friend = query.first()
+            user.befriend(friend)
+    db.session.commit()
+    return success_response(user.serialize())
+
+@app.route("/me/", methods=["GET"])
+def me():
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    return success_response(user.serialize())
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
