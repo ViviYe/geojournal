@@ -155,12 +155,13 @@ def create_entry():
         "externalId": str(geofence.id),
     }
     radar_geofence = radar.geofences.create(data=geofence_data)
+    print("hERE'S THE GEOFENCE", radar_geofence)
     entry = Entry(user_id=user.id, title=title, description=description, created_at=datetime.datetime.now(), longitude=longitude, latitude=latitude, geo_id=geofence.id)
     db.session.add(entry)
     db.session.commit()
     return success_response(entry.serialize())
 
-@app.route("/entries/", methods=["GET"])
+@app.route("/entries/", methods=["POST"])
 def view_entries():
     success, session_token = extract_token(request)
     if not success:
@@ -169,6 +170,15 @@ def view_entries():
     if not user or not user.verify_session_token(session_token):
         return json.dumps({"error": "Invalid session token."})
     entries = Entry.query.filter_by(user_id=user.id)
+    body = json.loads(request.data)
+    longitude, latitude = body.get("longitude"), body.get("latitude")
+    if longitude is None or latitude is None:
+        return success_response([e.serialize() for e in entries])
+    nearby_geofences = radar.search.geofences(near=[longitude, latitude])
+    external_ids = [int(g.externalId) for g in nearby_geofences]
+    for ext_id in external_ids:
+        e = Entry.query.filter(geo_id=ext_id).all()
+        entries.extend(e)
     return success_response([e.serialize() for e in entries])
     
 
