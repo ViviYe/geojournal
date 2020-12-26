@@ -61,6 +61,7 @@ class User(db.Model):
     def renew_session(self):
         self.session_token = self._urlsafe_base_64()
         self.session_expiration = datetime.datetime.now() + datetime.timedelta(days=1)
+        self.session_expiration = self.session_expiration.replace(microsecond=0)
         self.update_token = self._urlsafe_base_64()
 
     def verify_password(self, password):
