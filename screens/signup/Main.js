@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Image, Text, SafeAreaView } from "react-native";
+import { View, Image, Text, StyleSheet,SafeAreaView, Dimensions } from "react-native";
+import MapView from 'react-native-maps';
 import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
@@ -9,14 +10,11 @@ import { Avatar } from 'react-native-elements';
 //the shade of white we are using
 const WHITE = "white";
 
-/**
- * Start screen component
- */
-export default function Main({ navigation }) {
+export default function Main({navigation}) {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: "#BCBFA7",
+        backgroundColor: "#BCBFA750",
         flex: 1,
       }}
     >
@@ -35,11 +33,23 @@ export default function Main({ navigation }) {
             onPress={()=> console.log("modal")}
           />
      </View>
-      <View style={{alignItems: "center"}}>
-        <Text style={{ fontSize: 40, color: "#F6F5D4", fontFamily: "Roboto" }}>
-          Map
-        </Text>
-      </View>
+
+     <MapView style={styles.map} 
+      showsUserLocation
+      showsBuildings/>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  map: {
+    width: Dimensions.get('screen').width,
+    height: 1000,//Dimensions.get('screen').height,
+  },
+});
