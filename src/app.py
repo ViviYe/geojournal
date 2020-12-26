@@ -145,7 +145,22 @@ def create_entry():
     db.session.commit()
     return success_response(entry.serialize())
 
-@app.route("/entries/", methods=["POST"])
+@app.route("/entry/<int:entry_id>/", methods=["DELETE"])
+def delete_entry(entry_id):
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    entry = Entry.query.filter_by(id=entry_id, user_id=user.id).first()
+    if entry is None:
+        return failure_response('Entry does not exist.')
+    db.session.delete(entry)
+    db.session.commit()
+    return success_response(entry.serialize())
+
+@app.route("/entries/", methods=["GET"])
 def view_entries():
     success, session_token = extract_token(request)
     if not success:
