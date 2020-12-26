@@ -46,7 +46,7 @@ export default function StartScreen({ navigation }) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <Text style={styles.modalText}>Add Friends here</Text>
 
             <TouchableHighlight
               style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
@@ -54,7 +54,7 @@ export default function StartScreen({ navigation }) {
                 setModalVisible(!modalVisible);
               }}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>close</Text>
             </TouchableHighlight>
           </View>
         </View>
