@@ -30,6 +30,12 @@ def success_response(data, code=200):
 def failure_response(message, code=404):
     return json.dumps({"success": False, "error": message}), code
 
+def get_address(latitude, longitude):
+    addresses = radar.geocode.reverse(coordinates=(latitude,longitude))
+    if addresses is not None:
+        return addresses[0].formattedAddress
+    return None
+
 def extract_token(request):
     auth_header = request.headers.get("Authorization")
     if auth_header is None:
@@ -130,7 +136,8 @@ def create_entry():
     latitude = body.get("latitude")
     title = body.get("title")
     description = body.get("description")
-    entry = Entry(user_id=user.id, title=title, description=description, created_at=datetime.datetime.now(), longitude=longitude, latitude=latitude)
+    address = get_address(latitude, longitude)
+    entry = Entry(user_id=user.id, title=title, description=description, created_at=datetime.datetime.now(), longitude=longitude, latitude=latitude, address=address)
     db.session.add(entry)
     db.session.commit()
     return success_response(entry.serialize())
@@ -150,11 +157,7 @@ def view_entries():
     # if longitude is None or latitude is None:
     # return failure_response("not yet implemented!")
 
-def get_address(latitude, longitude):
-    addresses = radar.geocode.reverse(coordinates=(latitude,longitude))
-    if addresses is not None:
-        return addresses[0].formattedAddress
-    return None
+
     
 
 if __name__ == "__main__":

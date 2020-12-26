@@ -53,6 +53,7 @@ class Entry(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     longitude = db.Column(db.Integer, nullable=False)
     latitude = db.Column(db.Integer, nullable=False)
+    address = db.Column(db.String, nullable=True)
 
     def __init__(self, **kwargs):
         self.user_id = kwargs.get("user_id")
@@ -61,6 +62,7 @@ class Entry(db.Model):
         self.created_at = kwargs.get("created_at")
         self.longitude = kwargs.get("longitude")
         self.latitude = kwargs.get("latitude")
+        self.address = kwargs.get("address")
     
     def serialize(self):
         return {
@@ -70,4 +72,5 @@ class Entry(db.Model):
             "created_at": str(self.created_at),
             "longitude": self.longitude,
             "latitude": self.latitude,
+            "address": self.address,
         }
