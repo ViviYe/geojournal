@@ -241,7 +241,7 @@ def search_friends(query):
     if not user or not user.verify_session_token(session_token):
         return json.dumps({"error": "Invalid session token."})
     users = User.query.filter(User.email.contains(query))
-    return success_response([u.simple_serialize() for u in users])
+    return success_response([u.friend_serialize(user.id) for u in users])
 
 @app.route("/friends/<int:friend_id>/", methods=["DELETE"])
 def delete_friends(friend_id):
