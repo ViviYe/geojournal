@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: Dimensions.get('screen').width,
-    height: 1000,//Dimensions.get('screen').height,
+    height: Dimensions.get('screen').height,
   },
   centeredView: {
     flex: 1,
