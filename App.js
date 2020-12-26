@@ -13,7 +13,7 @@ export default function App() {
     return null;
   } else {
     return <NavigationContainer>
-      {<LoggedInStack />}
+      {<LoggedOutStack />}
       </NavigationContainer>;
   }
 }

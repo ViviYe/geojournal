@@ -45,7 +45,7 @@ export default function SignIn({ navigation }) {
       </View>
       <View style={{ width: "50%", marginVertical: "10%" }}>
         <LoginButton
-          onPress={() => navigation.push("signin")}
+          onPress={() => navigation.push("signedin")}
           color="white"
           text="sign in"
           background="#5d6143"
