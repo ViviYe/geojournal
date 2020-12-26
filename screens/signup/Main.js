@@ -1,6 +1,6 @@
 import React from "react";
 import MapView, {Marker} from 'react-native-maps';
-import { View, Image, Text, StyleSheet,SafeAreaView, Dimensions, Modal, TouchableWithoutFeedback, TextInput, TouchableOpacity} from "react-native";
+import { View, Image, Text, StyleSheet,SafeAreaView, Dimensions, Modal, TouchableWithoutFeedback, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, InputAccessoryView, Button} from "react-native";
 import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
@@ -10,6 +10,7 @@ import { Avatar, Icon } from 'react-native-elements';
 //the shade of white we are using
 const WHITE = "white";
 
+
 export const getCurrentLocation = () => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(position => resolve(position), e => reject(e));
@@ -17,7 +18,7 @@ export const getCurrentLocation = () => {
 };
 
 export default function Main({navigation}) {
-
+  const inputAccessoryViewID = 'submit';
   const [latitude, setLatitude] = React.useState(0.);
   const [longitude, setLongitude] = React.useState(0.);
   const [doneLoading, setDoneLoading] = React.useState(false);
@@ -47,80 +48,81 @@ export default function Main({navigation}) {
     const [writeJournal, setWriteJournal] = React.useState(false);
     const [readJournal, setReadJournal] = React.useState(false);
     const [journal, setJournal] = React.useState(false);
-    const WriteJournalModel = () =>{
-        return (
-            <Modal
-            animationType="slide"
-            transparent={true}
-            visible={writeJournal}
-            onRequestClose={() => {
-              setWriteJournal(false);
-            }}
-          >
-            <TouchableWithoutFeedback onPress={() => setWriteJournal(false)}>
-              <View style={styles.centeredView}>
-                  <TouchableWithoutFeedback>
-                <View style={styles.modalView}>
-                  <Text style={{ fontFamily: "Roboto", fontSize: 20, color:'#73715a' }}>
-                    {" "}
-                    add journal
-                  </Text>
-                  <View style={{width:'80%', marginTop:'10%'}}>
-                  <TextInput 
-                  placeholder='title'
-                  style={{height:30, borderBottomColor:'#73715a', borderBottomWidth:2}}
-                  />
-                  </View>
-                  <View style={{width:'90%', marginTop:'15%', height:'55%'}}>
-                  <TextInput 
-                multiline={true}
-                  placeholder='write something...'
-                  style={{height:'100%', borderColor:'#73715a50', borderWidth:1.5, backgroundColor:'#FFFFFF50'}}
-                  />
-                  </View>
-                 <View style={{width:'60%', alignSelf:'center', justifyContent:'center', 
-                 alignItems:'center', marginTop:'10%', backgroundColor:'#666344', borderRadius:5}}>
-                     <TouchableOpacity style={{paddingVertical:5}}>
-                        <Text style={{color: 'white'}}>submit</Text>
-                     </TouchableOpacity>
-                 </View>
+    
+    // const WriteJournalModel = () =>{
+    //     return (
+    //         <Modal
+    //         animationType="slide"
+    //         transparent={true}
+    //         visible={writeJournal}
+    //         onRequestClose={() => {
+    //           setWriteJournal(false);
+    //         }}
+    //       >
+    //         <TouchableWithoutFeedback onPress={() => setWriteJournal(false)}>
+    //           <View style={styles.centeredView}>
+    //             <TouchableWithoutFeedback>
+    //             <View style={styles.modalView}>
+    //               <Text style={{ fontFamily: "Roboto", fontSize: 20, color:'#73715a' }}>
+    //                 {" "}
+    //                 add journal
+    //               </Text>
+    //               <View style={{width:'80%', marginTop:'10%'}}>
+    //               <TextInput 
+    //               placeholder='title'
+    //               style={{height:30, borderBottomColor:'#73715a', borderBottomWidth:2}}
+    //               />
+    //               </View>
+    //               <View style={{width:'90%', marginTop:'15%', height:'55%'}}>
+    //               <TextInput 
+    //             multiline={true}
+    //               placeholder='write something...'
+    //               style={{height:'100%', borderColor:'#73715a50', borderWidth:1.5, backgroundColor:'#FFFFFF50'}}
+    //               />
+    //               </View>
+    //              <View style={{width:'60%', alignSelf:'center', justifyContent:'center', 
+    //              alignItems:'center', marginTop:'10%', backgroundColor:'#666344', borderRadius:5}}>
+    //                  <TouchableOpacity style={{paddingVertical:5}}>
+    //                     <Text style={{color: 'white'}}>submit</Text>
+    //                  </TouchableOpacity>
+    //              </View>
                   
-                  </View>   
-                </TouchableWithoutFeedback>
-              </View>
-            </TouchableWithoutFeedback>
-          </Modal>
-        )
+    //               </View>   
+    //             </TouchableWithoutFeedback>
+    //           </View>
+    //         </TouchableWithoutFeedback>
+    //       </Modal>
+    //     );
     
-    }
+    // }
 
 
 
-    const ReadJournalModel = () =>{
-        return (
-            <Modal
-            animationType="slide"
-            transparent={true}
-            visible={readJournal}
-            onRequestClose={() => {
-              setReadJournal(false);
-            }}
-          >
-            <TouchableWithoutFeedback onPress={() => setReadJournal(false)}>
-              <View style={styles.centeredView}>
-                  <TouchableWithoutFeedback>
-                <View style={styles.modalView}>
-                  <Text style={{ fontFamily: "Roboto", fontSize: 20, color:'#73715a' }}>
-                    Here renders the journal information
-                  </Text>
-                  </View>   
-                </TouchableWithoutFeedback>
-              </View>
-            </TouchableWithoutFeedback>
-          </Modal>
-        )
+    // const ReadJournalModel = () =>{
+    //     return (
+    //         <Modal
+    //         animationType="slide"
+    //         transparent={true}
+    //         visible={readJournal}
+    //         onRequestClose={() => {
+    //           setReadJournal(false);
+    //         }}
+    //       >
+    //         <TouchableWithoutFeedback onPress={() => setReadJournal(false)}>
+    //           <View style={styles.centeredView}>
+    //               <TouchableWithoutFeedback>
+    //             <View style={styles.modalView}>
+    //               <Text style={{ fontFamily: "Roboto", fontSize: 20, color:'#73715a' }}>
+    //                 Here renders the journal information
+    //               </Text>
+    //               </View>   
+    //             </TouchableWithoutFeedback>
+    //           </View>
+    //         </TouchableWithoutFeedback>
+    //       </Modal>
+    //     )
     
-    }
+    // }
 
 
     if (!doneLoading){
@@ -148,9 +150,66 @@ export default function Main({navigation}) {
               longitudeDelta: 0.0421,})  }
           />
     </View>
-
-    <WriteJournalModel/>
-    <ReadJournalModel/>
+    <InputAccessoryView nativeID={inputAccessoryViewID}>
+        <View style={{alignItems:'flex-end', paddingHorizontal:'5%'}}>
+        <Button
+          onPress={() => setWriteJournal(false)}
+          title="submit"   
+          
+        />
+        </View>
+      </InputAccessoryView>
+    <Modal
+            animationType="slide"
+            transparent={true}
+            visible={writeJournal}
+            onRequestClose={() => {
+              setWriteJournal(false);
+            }}
+          >
+            
+            <TouchableWithoutFeedback onPress={() => setWriteJournal(false)}>
+              <View style={styles.centeredView}>
+        
+                <TouchableWithoutFeedback>
+                <View style={styles.modalView}>
+        
+                  <Text style={{ fontFamily: "Roboto", fontSize: 20, color:'#73715a' }}>
+                    {" "}
+                    add journal
+                  </Text>
+                  <View style={{width:'80%', marginTop:'8%'}}>
+                  <TextInput 
+                  placeholder='title'
+                  style={{height:30, borderBottomColor:'#73715a', borderBottomWidth:2}}
+                  />
+                  </View>
+                  <View style={{width:'90%', marginTop:'15%', height:'40%'}}>
+                  <TextInput 
+                multiline={true}
+                inputAccessoryViewID={inputAccessoryViewID}
+                  placeholder='write something...'
+                  style={{height:'100%', borderColor:'#73715a50', borderWidth:1.5, backgroundColor:'#FFFFFF50'}}
+                  />
+                  </View>
+     
+                 <View style={{width:'60%', alignSelf:'center', justifyContent:'center', 
+                 alignItems:'center', marginTop:'10%', backgroundColor:'#666344', borderRadius:5}}>
+                     <TouchableOpacity 
+                        onPress={()=> setWriteJournal(false)}
+                        style={{paddingVertical:5}}>
+                        <Text style={{color: 'white'}}>submit</Text>
+                     </TouchableOpacity>
+                 </View>
+                  
+                  </View>   
+              
+                </TouchableWithoutFeedback>
+      
+              </View>
+            </TouchableWithoutFeedback>
+          </Modal>
+    {/* <ReadJournalModel/> */}
     <View style={{position:'absolute', zIndex: 100, width:'80%', alignSelf:'center', bottom: 40, left: 290}}>
      <Icon
             raised
@@ -198,7 +257,9 @@ export default function Main({navigation}) {
        ))
         }
       </MapView>
+      
     </View>
+
   );
 }
 }
@@ -217,9 +278,9 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
+    
     alignItems: "center",
-    marginTop: 22,
+    marginTop: '30%',
   },
   modalView: {
     height: "60%",
@@ -238,3 +299,4 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
+ 
