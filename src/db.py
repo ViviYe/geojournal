@@ -86,6 +86,7 @@ class User(db.Model):
 
     def simple_serialize(self):
         return {
+            "id": self.id,
             "email": self.email,
             "friends": [friend.email for friend in self.friends] if hasattr(self, 'friends') else []
         }
