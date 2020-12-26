@@ -80,7 +80,7 @@ class User(db.Model):
             "device_id": self.device_id,
             "device_type": self.device_type,
             "email": self.email,
-            "friends": [friend.email for friend in self.friends] if self.friends else []
+            "friends": [friend.email for friend in self.friends] if hasattr(self, 'friends') else []
         }
 
 class Entry(db.Model):
