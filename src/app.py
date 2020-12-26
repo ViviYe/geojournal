@@ -8,6 +8,7 @@ from flask import request
 import datetime
 import users_dao
 from dotenv import load_dotenv
+from geopy import distance
 load_dotenv()
 
 db_filename = "geojournal.db"
@@ -16,6 +17,7 @@ app = Flask(__name__)
 # https://radar-python.readthedocs.io/en/latest/
 RADAR_SECRET_KEY = os.getenv("RADAR_SECRET_KEY")
 radar = RadarClient(RADAR_SECRET_KEY)
+RADIUS_KM = 1
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -156,6 +158,34 @@ def view_entries():
     # longitude, latitude = body.get("longitude"), body.get("latitude")
     # if longitude is None or latitude is None:
     # return failure_response("not yet implemented!")
+
+
+@app.route("/friend-entries/", methods=["POST"])
+def view_friend_entries():
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+
+    body = json.loads(request.data)
+    latitude = body.get("latitude")
+    longitude = body.get("longitude")
+
+    entries = []
+    for friend in user.friends:
+        entries.extend(Entry.query.filter_by(user_id=friend.id).all())
+    actual_entries = []
+    for entry in entries:
+        if within_radius(latitude, longitude, entry.latitude, entry.longitude):
+            actual_entries.append(entry)
+    return success_response([e.serialize() for e in actual_entries])
+
+
+def within_radius(latitude_1, longitude_1, latitude_2, longitude_2):
+    global RADIUS_KM
+    return (distance.distance((latitude_1, longitude_1), (latitude_2, longitude_2)).km < RADIUS_KM)
 
 
 @app.route("/friends/", methods=["POST"])
