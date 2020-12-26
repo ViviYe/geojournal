@@ -1,5 +1,6 @@
 import json
 import os
+import requests
 from radar import RadarClient
 from db import db, Entry, Geofence
 from flask import Flask
@@ -16,6 +17,10 @@ app = Flask(__name__)
 RADAR_SECRET_KEY = os.getenv("RADAR_SECRET_KEY")
 radar = RadarClient(RADAR_SECRET_KEY)
 
+# track
+HEADERS = {'Authorization': RADAR_SECRET_KEY}
+TRACK_URL = "https://api.radar.io/v1/track"
+ACCURACY_METERS = 50
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -50,12 +55,31 @@ def hello_world():
 
 @app.route("/register/", methods=["POST"])
 def register_account():
+    global HEADERS
+    global TRACK_URL
+    global ACCURACY_METERS
+
     body = json.loads(request.data)
     email = body.get("email")
     password = body.get("password")
     user_id = body.get("user_id")
     device_id = body.get("device_id")
     device_type = body.get("device_type")
+    longitude = body.get("longitude")
+    latitude = body.get("latitude")
+
+    params = {
+        "deviceId": device_id,
+        "userId": user_id,
+        "deviceType": device_type,
+        "latitude": latitude,
+        "longitude": longitude,
+        "accuracy": ACCURACY_METERS,
+        "foreground": True,
+        "stopped": True
+    }
+    r = requests.get(TRACK_URL, params=params, headers=HEADERS)
+    r = json.loads(r.read())
 
     if email is None or password is None:
         return failure_response("Invalid email or password")
@@ -72,6 +96,7 @@ def register_account():
             "session_token": user.session_token,
             "session_expiration": str(user.session_expiration),
             "update_token": user.update_token,
+            "data": r,
         }
     )
 
