@@ -217,6 +217,17 @@ def me():
         return json.dumps({"error": "Invalid session token."})
     return success_response(user.serialize())
 
+@app.route("/friend-search/<string:query>/", methods=["GET"])
+def search_friends(query):
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    users = User.query.filter(User.email.contains(query))
+    return success_response([u.simple_serialize() for u in users])
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 
