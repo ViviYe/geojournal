@@ -139,7 +139,8 @@ def create_entry():
     title = body.get("title")
     description = body.get("description")
     address = get_address(latitude, longitude)
-    entry = Entry(user_id=user.id, title=title, description=description, created_at=datetime.datetime.now(), latitude=latitude, longitude=longitude, address=address)
+    date = datetime.datetime.now().replace(microsecond=0)
+    entry = Entry(user_id=user.id, title=title, description=description, created_at=date, latitude=latitude, longitude=longitude, address=address)
     db.session.add(entry)
     db.session.commit()
     return success_response(entry.serialize())
@@ -215,6 +216,17 @@ def me():
     if not user or not user.verify_session_token(session_token):
         return json.dumps({"error": "Invalid session token."})
     return success_response(user.serialize())
+
+@app.route("/friend-search/<string:query>/", methods=["GET"])
+def search_friends(query):
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    users = User.query.filter(User.email.contains(query))
+    return success_response([u.simple_serialize() for u in users])
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

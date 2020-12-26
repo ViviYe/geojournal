@@ -61,6 +61,7 @@ class User(db.Model):
     def renew_session(self):
         self.session_token = self._urlsafe_base_64()
         self.session_expiration = datetime.datetime.now() + datetime.timedelta(days=1)
+        self.session_expiration = self.session_expiration.replace(microsecond=0)
         self.update_token = self._urlsafe_base_64()
 
     def verify_password(self, password):
@@ -83,10 +84,17 @@ class User(db.Model):
             "friends": [friend.email for friend in self.friends] if hasattr(self, 'friends') else []
         }
 
+    def simple_serialize(self):
+        return {
+            "email": self.email,
+            "friends": [friend.email for friend in self.friends] if hasattr(self, 'friends') else []
+        }
+
 class Entry(db.Model):
     __tablename__ = "entry"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    author = relationship("User", backref="entries")
     title = db.Column(db.String)
     description = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
@@ -106,6 +114,7 @@ class Entry(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "author": self.author.email,
             "title": self.title,
             "description": self.description,
             "created_at": str(self.created_at),
