@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-
+import { LoggedInStack } from "./LoggedInStack";
 import * as React from "react";
 
 import startScreen from "../screens/signup/Start";
@@ -17,6 +17,8 @@ export function LoggedOutStack() {
       <Stack.Screen name="start" component={startScreen} />
       <Stack.Screen name="signup" component={SignUp} />
       <Stack.Screen name="signin" component={SignIn} />
+      <Stack.Screen name="signedin" component={LoggedInStack} />
+
 
     </Stack.Navigator>
   );

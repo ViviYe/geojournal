@@ -21,13 +21,13 @@ def verify_credentials(email, password):
 
     return optional_user.verify_password(password), optional_user
 
-def create_user(email, password):
+def create_user(email, password, user_id, device_id, device_type):
     optional_user = get_user_by_email(email)
 
     if optional_user is not None:
         return False, optional_user
 
-    user = User(email=email, password=password)
+    user = User(email=email, password=password, user_id=user_id, device_id=device_id, device_type=device_type)
 
     db.session.add(user)
     db.session.commit()
