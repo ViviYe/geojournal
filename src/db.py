@@ -49,6 +49,7 @@ class User(db.Model):
         if friend in self.friends:
             self.friends.remove(friend)
             friend.friends.remove(self)
+
     def __repr__(self):
         return '<User(name=|%s|)>' % self.name
 
@@ -79,7 +80,7 @@ class User(db.Model):
             "device_id": self.device_id,
             "device_type": self.device_type,
             "email": self.email,
-            "friends": [friend.email for friend in self.friends]
+            "friends": [friend.email for friend in self.friends] if self.friends else []
         }
 
 class Entry(db.Model):
