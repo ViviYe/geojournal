@@ -12,13 +12,13 @@ const WHITE = "white";
 
 export default function Main({navigation}) {
   return (
-    <SafeAreaView
+    <View
       style={{
         backgroundColor: "#BCBFA750",
         flex: 1,
       }}
     >
-    <View style={{height: "20%", justifyContent:'center', paddingHorizontal:'5%', flexDirection:"row"}}>
+    <View style={{position: 'absolute', height: 150, justifyContent:'center', paddingHorizontal:'5%', flexDirection:"row", zIndex: 100, paddingVertical: 30}}>
     <Avatar
             size="large"
             rounded
@@ -37,7 +37,7 @@ export default function Main({navigation}) {
      <MapView style={styles.map} 
       showsUserLocation
       showsBuildings/>
-    </SafeAreaView>
+    </View>
   );
 }
 
