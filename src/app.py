@@ -182,6 +182,37 @@ def view_entries():
     return success_response([e.serialize() for e in entries])
     
 
+# @app.route("/add-friends/", methods=["POST"])
+# def add_friends():
+    
+#     success, session_token = extract_token(request)
+
+#     if not success:
+#         return session_token
+
+#     user = users_dao.get_user_by_session_token(session_token)
+#     if not user or not user.verify_session_token(session_token):
+#         return json.dumps({"error": "Invalid session token."})
+
+#     body = json.loads(request.data)
+#     email_list = body.get("friends")
+#     user = users_dao.get_user_by_session_token(session_token)
+
+#     print(user.friends)
+
+#     # for email in email_list:
+#     #     friend_email = User.query.filter_by(email=email).first()
+#         # User.friends.append
+
+#     return json.dumps({"message": "It works?"})
+
+#     # if not user or not user.verify_session_token(session_token):
+#     #     return json.dumps({"error": "Invalid session token."})
+
+
+#     # return json.dumps({"message": "You have successfully implemented sessions."})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 

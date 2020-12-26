@@ -7,6 +7,13 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+friend_table = db.Table(
+    'friend_table',
+    db.Model.metadata,
+    db.Column('first_email', db.String, db.ForeignKey('user.email')),
+    db.Column('second_email', db.String, db.ForeignKey('user.email'))
+)
+
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
@@ -18,6 +25,10 @@ class User(db.Model):
     session_token = db.Column(db.String, nullable=False, unique=True)
     session_expiration = db.Column(db.DateTime, nullable=False)
     update_token = db.Column(db.String, nullable=False, unique=True)
+    
+    # friends list
+    friends = db.relationship('User', secondary=friend_table, primaryjoin = (friend_table.c.first_email == email), 
+        secondaryjoin = (friend_table.c.second_email == email), backref=db.backref('friend_table', lazy = 'dynamic'), lazy = 'dynamic') 
 
     def __init__(self, **kwargs):
         self.email = kwargs.get("email")
