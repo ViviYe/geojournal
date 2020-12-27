@@ -17,8 +17,8 @@ import { Avatar } from "react-native-elements";
 //the shade of white we are using
 const WHITE = "white";
 
-export default function JournalDetail({ navigation, route}) {
-  const item = route.params
+export default function JournalDetail({ navigation, route }) {
+  const item = route.params;
   const [friends, setFriends] = React.useState(0);
   const renderItem = ({ item }) => (
     <Card
@@ -43,43 +43,62 @@ export default function JournalDetail({ navigation, route}) {
             fontWeight: "200",
           }}
         >
-         {item.title}
+          {item.title}
         </Text>
-        <Text style={{fontSize: 15,
-          fontFamily: "RobotoMono-Regular", fontWeight: "600", marginVertical:'5%'}}>author: {item.author}</Text>
-        <Text style={{fontSize: 15,
-          fontFamily: "RobotoMono-Regular"}}>location: {item.address}</Text>
-        
+        <Text
+          style={{
+            fontSize: 15,
+            fontFamily: "RobotoMono-Regular",
+            fontWeight: "600",
+            marginVertical: "5%",
+          }}
+        >
+          {item.author}
+        </Text>
+        <Text style={{ fontSize: 15, fontFamily: "RobotoMono-Regular" }}>
+          {item.address}
+        </Text>
       </View>
-      <View style={{height:'60%', backgroundColor:'white', width:'85%', alignSelf:'center', borderRadius: 20, marginTop:'10%', padding: 30, paddingTop: 50}}>
       <View
-      style={{
-        height: 35,
-        width: "45%",
-        backgroundColor: "#2A9D8F",
-        position: "absolute",
-        top: -15,
-        borderRadius: 10,
-        shadowColor: "grey",
-        shadowRadius: 2,
-        shadowOpacity: 0.8,
-        shadowOffset: { width: 0, height: 2 },
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text
         style={{
-          color: "white",
-          fontSize: 12,
-          fontFamily: "RobotoMono-Regular",
+          height: "60%",
+          backgroundColor: "white",
+          width: "85%",
+          alignSelf: "center",
+          borderRadius: 20,
+          marginTop: "10%",
+          padding: 30,
+          paddingTop: 50,
         }}
       >
-        {item.created_at}
-      </Text>
-    </View>
-    <Text>{item.description}</Text>
-    </View>
+        <View
+          style={{
+            height: 35,
+            width: "45%",
+            backgroundColor: "#2A9D8F",
+            position: "absolute",
+            top: -15,
+            borderRadius: 10,
+            shadowColor: "grey",
+            shadowRadius: 2,
+            shadowOpacity: 0.8,
+            shadowOffset: { width: 0, height: 2 },
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 12,
+              fontFamily: "RobotoMono-Regular",
+            }}
+          >
+            {item.created_at}
+          </Text>
+        </View>
+        <Text>{item.description}</Text>
+      </View>
     </SafeAreaView>
   );
 }
