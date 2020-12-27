@@ -54,7 +54,7 @@ const Card = ({ name }) => (
       style={{
         fontSize: 15,
         color: "black",
-        fontFamily: "Roboto",
+        fontFamily: "RobotoMono-Regular",
         alignItems: "center",
       }}
     >
@@ -115,7 +115,7 @@ export default function StartScreen({ navigation }) {
               <View style={styles.modalView}>
                 <Text
                   style={{
-                    fontFamily: "Roboto",
+                    fontFamily: "RobotoMono-Regular",
                     fontSize: 15,
                     color: "#73715a",
                   }}
@@ -163,7 +163,9 @@ export default function StartScreen({ navigation }) {
                   }}
                 >
                   <TouchableOpacity>
-                    <Text style={{ fontFamily: "Roboto", fontSize: 12 }}>
+                    <Text
+                      style={{ fontFamily: "RobotoMono-Regular", fontSize: 12 }}
+                    >
                       Search
                     </Text>
                   </TouchableOpacity>
@@ -194,7 +196,7 @@ export default function StartScreen({ navigation }) {
           style={{
             fontSize: 30,
             color: "#92B6B1",
-            fontFamily: "Roboto",
+            fontFamily: "RobotoMono-Regular",
             alignItems: "center",
             marginRight: 10,
           }}

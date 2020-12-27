@@ -74,7 +74,7 @@ const Card = ({ title, message, location, date }) => (
     <View
       style={{
         height: 35,
-        width: "35%",
+        width: "50%",
         backgroundColor: "#2A9D8F",
         position: "absolute",
         marginTop: -15,
@@ -87,13 +87,21 @@ const Card = ({ title, message, location, date }) => (
         alignItems: "center",
       }}
     >
-      <Text style={{ color: "white", fontSize: 12 }}>{date}</Text>
+      <Text
+        style={{
+          color: "white",
+          fontSize: 12,
+          fontFamily: "RobotoMono-Regular",
+        }}
+      >
+        {date}
+      </Text>
     </View>
     <Text
       style={{
         fontSize: 15,
         color: "#575632",
-        fontFamily: "Avenir",
+        fontFamily: "RobotoMono-Regular",
         fontWeight: "600",
         alignItems: "center",
       }}
@@ -106,7 +114,7 @@ const Card = ({ title, message, location, date }) => (
       style={{
         fontSize: 12,
         color: "#575632",
-        fontFamily: "Avenir",
+        fontFamily: "RobotoMono-Regular",
         alignItems: "center",
         margin: 2,
         marginTop: 10,
@@ -170,7 +178,7 @@ export default function StartScreen({ navigation }) {
             alignSelf: "center",
             fontSize: 15,
             color: "#F4F1DE",
-            fontFamily: "Roboto",
+            fontFamily: "RobotoMono-Regular",
           }}
         >
           Friends
@@ -181,7 +189,7 @@ export default function StartScreen({ navigation }) {
           style={{
             fontSize: 30,
             color: "#92B6B1",
-            fontFamily: "Roboto",
+            fontFamily: "RobotoMono-Regular",
             marginVertical: "5%",
             fontWeight: "200",
           }}

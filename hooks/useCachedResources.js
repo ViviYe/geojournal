@@ -1,7 +1,7 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import * as React from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import * as React from "react";
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -15,12 +15,13 @@ export default function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
-          'Inter': require('../assets/fonts/Inter.otf'),
-          'Inter-bold': require('../assets/fonts/Inter-Bold.otf'),
-          'Inter-semi': require('../assets/fonts/Inter-Semi.otf'),
-          'Inter-med': require('../assets/fonts/Inter-Medium.otf'),
-          'Roboto': require('../assets/fonts/Roboto.ttf'),
+          "space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
+          Inter: require("../assets/fonts/Inter.otf"),
+          "Inter-bold": require("../assets/fonts/Inter-Bold.otf"),
+          "Inter-semi": require("../assets/fonts/Inter-Semi.otf"),
+          "Inter-med": require("../assets/fonts/Inter-Medium.otf"),
+          Roboto: require("../assets/fonts/Roboto.ttf"),
+          "RobotoMono-Regular": require("../assets/fonts/RobotoMono-Regular.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
