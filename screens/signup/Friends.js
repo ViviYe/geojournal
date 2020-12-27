@@ -100,7 +100,9 @@ export default function Friends({ navigation }) {
   const renderUser = ({ item }) => <UserCard email={item.email} />;
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
+    <SafeAreaView
+      style={{ backgroundColor: Color.paleGreenBackground, flex: 1 }}
+    >
       <Modal
         animationType="slide"
         transparent={true}

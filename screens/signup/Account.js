@@ -155,7 +155,9 @@ export default function Account({ navigation }) {
   );
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
+    <SafeAreaView
+      style={{ backgroundColor: Color.paleGreenBackground, flex: 1 }}
+    >
       <TouchableOpacity
         onPress={() => navigation.push("friends")}
         style={{
