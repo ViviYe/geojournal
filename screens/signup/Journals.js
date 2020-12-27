@@ -63,7 +63,7 @@ const Card = ({ title, author, location, date }) => (
   <View
     style={{
       backgroundColor: "#F4F1DE",
-      width: "80%",
+      width: "90%",
       alignSelf: "center",
       borderRadius: 20,
       marginVertical: 15,
@@ -149,7 +149,7 @@ const Card = ({ title, author, location, date }) => (
         fontFamily: "RobotoMono-Regular",
         alignItems: "center",
         margin: 2,
-        marginTop: 10,
+        marginVertical: 10,
       }}
     >
       {" "}

@@ -66,7 +66,7 @@ const Card = ({ title, message, location, date }) => (
   <View
     style={{
       backgroundColor: "#F4F1DE",
-      width: "80%",
+      width: "90%",
       alignSelf: "center",
       borderRadius: 20,
       marginVertical: 15,
