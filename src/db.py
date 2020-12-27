@@ -69,7 +69,7 @@ class User(db.Model):
 
     # Checks if session token is valid and hasn't expired
     def verify_session_token(self, session_token):
-        return session_token == self.session_token and datetime.datetime.now() < self.session_expiration
+        return session_token == self.session_token # and datetime.datetime.now() < self.session_expiration
 
     def verify_update_token(self, update_token):
         return update_token == self.update_token

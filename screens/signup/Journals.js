@@ -22,7 +22,7 @@ const WHITE = "white";
 const JournalDummy = [
   {
     id: 1,
-    author: "yy453@cornell.edu",
+    author: "person@cornell.edu",
     title: "First journal entry",
     description: "today was a bad day, I did nothing, WAHHHH",
     created_at: "Dec 25, 2020",
@@ -32,7 +32,7 @@ const JournalDummy = [
   },
   {
     id: 2,
-    author: "yy453@cornell.edu",
+    author: "person@cornell.edu",
     title: "Second journal entry",
     description: "mehhh",
     created_at: "Dec 25, 2020",
@@ -42,7 +42,7 @@ const JournalDummy = [
   },
   {
     id: 3,
-    author: "yy453@cornell.edu",
+    author: "person@cornell.edu",
     title: "Third journal entry",
     description: "HEHEHEHE",
     created_at: "Dec 25, 2020",
@@ -52,7 +52,7 @@ const JournalDummy = [
   },
   {
     id: 4,
-    author: "yy453@cornell.edu",
+    author: "person@cornell.edu",
     title: "Forth journal entry",
     description: "HEHEHEHE",
     created_at: "Dec 25, 2020",
@@ -62,7 +62,7 @@ const JournalDummy = [
   },
 ];
 
-const Card = ({ title, message, location, date }) => (
+const Card = ({ title, author, location, date }) => (
   <View
     style={{
       backgroundColor: "#F4F1DE",
@@ -84,7 +84,7 @@ const Card = ({ title, message, location, date }) => (
         width: "45%",
         backgroundColor: "#2A9D8F",
         position: "absolute",
-        marginTop: -15,
+        top: -15,
         borderRadius: 10,
         shadowColor: "grey",
         shadowRadius: 2,
@@ -102,6 +102,34 @@ const Card = ({ title, message, location, date }) => (
         }}
       >
         {date}
+      </Text>
+    </View>
+
+    <View
+      style={{
+        height: 35,
+        width: "65%",
+        backgroundColor: "#F2CC8F",
+        position: "absolute",
+        bottom: -15,
+        right: -10,
+        borderRadius: 10,
+        shadowColor: "grey",
+        shadowRadius: 2,
+        shadowOpacity: 0.8,
+        shadowOffset: { width: 0, height: 2 },
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text
+        style={{
+          color: "white",
+          fontSize: 12,
+          fontFamily: "RobotoMono-Regular",
+        }}
+      >
+        {author}
       </Text>
     </View>
     <Text
@@ -124,7 +152,7 @@ const Card = ({ title, message, location, date }) => (
         fontFamily: "RobotoMono-Regular",
         alignItems: "center",
         margin: 2,
-        marginTop: 10,
+        marginVertical: 10,
       }}
     >
       {" "}
@@ -136,8 +164,7 @@ const Card = ({ title, message, location, date }) => (
 /**
  * Start screen component
  */
-export default function Account({ navigation }) {
-  const [friends, setFriends] = React.useState(0);
+export default function Journal({ navigation }) {
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.push("journal-detail", item)}>
       <Card
@@ -145,6 +172,7 @@ export default function Account({ navigation }) {
         message={item.description}
         location={item.address}
         date={item.created_at}
+        author={item.author}
       />
     </TouchableOpacity>
   );
@@ -163,16 +191,48 @@ export default function Account({ navigation }) {
         <SafeAreaView style={styles.container}>
           <TouchableOpacity
             onPress={() => navigation.push("friends")}
-            style={styles.friends}
+            style={{
+              backgroundColor: "#74C69D",
+              height: 40,
+              width: "30%",
+              alignSelf: "flex-end",
+              shadowColor: "black",
+              shadowRadius: 4,
+              shadowOpacity: 0.25,
+              shadowOffset: { width: 0, height: 2 },
+              marginRight: 30,
+              marginVertical: 20,
+              borderRadius: 20,
+              justifyContent: "center",
+            }}
           >
-            <Text style={styles.text}>Friends</Text>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 15,
+                color: "#F4F1DE",
+                fontFamily: "RobotoMono-Regular",
+              }}
+            >
+              Friends
+            </Text>
           </TouchableOpacity>
-          <View style={styles.list}>
-            <Text style={styles.name}>My Journal</Text>
-          </View>
 
+          <View style={{ margin: "3%", marginLeft: "10%" }}>
+            <Text
+              style={{
+                fontSize: 30,
+                color: "#92B6B1",
+                fontFamily: "RobotoMono-Regular",
+                marginVertical: "5%",
+                fontWeight: "200",
+              }}
+            >
+              Nearby Journals
+            </Text>
+          </View>
           <FlatList
-            style={styles.flatlist}
+            style={{ paddingTop: 20 }}
             data={JournalDummy}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
@@ -182,39 +242,10 @@ export default function Account({ navigation }) {
     </View>
   );
 }
-const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  friends: {
-    backgroundColor: "#74C69D",
-    height: 40,
-    width: "30%",
-    alignSelf: "flex-end",
-    shadowColor: "black",
-    shadowRadius: 4,
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 0, height: 2 },
-    marginRight: 30,
-    marginVertical: 20,
-    borderRadius: 20,
-    justifyContent: "center",
-  },
-  text: {
-    alignSelf: "center",
-    fontSize: 15,
-    color: "#F4F1DE",
-    fontFamily: "RobotoMono-Regular",
-  },
-  name: {
-    fontSize: 30,
-    color: "#92B6B1",
-    fontFamily: "RobotoMono-Regular",
-    marginVertical: "5%",
-    fontWeight: "200",
-  },
-  list: { alignItems: "center", marginTop: "3%" },
-  flatlist: { paddingTop: 20 },
 });

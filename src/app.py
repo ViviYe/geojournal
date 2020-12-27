@@ -15,7 +15,11 @@ db_filename = "geojournal.db"
 app = Flask(__name__)
 
 # https://radar-python.readthedocs.io/en/latest/
-RADAR_SECRET_KEY = os.getenv("RADAR_SECRET_KEY")
+try:
+    RADAR_SECRET_KEY = os.getenv("RADAR_SECRET_KEY")
+except:
+    RADAR_SECRET_KEY = os.environ["RADAR_SECRET_KEY"]
+
 radar = RadarClient(RADAR_SECRET_KEY)
 RADIUS_KM = 1
 
@@ -170,11 +174,34 @@ def view_entries():
         return json.dumps({"error": "Invalid session token."})
     entries = Entry.query.filter_by(user_id=user.id)
     return success_response([e.serialize() for e in entries])
-    # body = json.loads(request.data)
-    # longitude, latitude = body.get("longitude"), body.get("latitude")
-    # if longitude is None or latitude is None:
-    # return failure_response("not yet implemented!")
 
+@app.route("/entries/<int:entry_id>/", methods=["GET"])
+def view_specific_entry(entry_id):
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    entry = Entry.query.filter_by(user_id=user.id, id=entry_id).first()
+    if entry is None:
+        return failure_response('Entry does not exist.')
+    return success_response(entry.serialize())
+
+@app.route("/entries/", methods=["POST"])
+def view_entries_at_coordinates():
+    success, session_token = extract_token(request)
+    if not success:
+        return session_token
+    user = users_dao.get_user_by_session_token(session_token)
+    if not user or not user.verify_session_token(session_token):
+        return json.dumps({"error": "Invalid session token."})
+    body = json.loads(request.data)
+    latitude = body.get("latitude")
+    longitude = body.get("longitude")
+    title = body.get("title")
+    entries = Entry.query.filter_by(user_id=user.id, latitude=latitude, longitude=longitude).all()
+    return success_response([e.serialize() for e in entries])
 
 @app.route("/friend-entries/", methods=["POST"])
 def view_friend_entries():
@@ -263,4 +290,3 @@ def delete_friends(friend_id):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
