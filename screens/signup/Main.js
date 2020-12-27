@@ -87,10 +87,10 @@ export default function Main({ navigation }) {
           style={{
             position: "absolute",
             zIndex: 100,
-            width: "80%",
+            width: "90%",
             alignSelf: "center",
             bottom: 110,
-            left: 290,
+            left: 300,
           }}
         >
           <Icon
@@ -210,6 +210,7 @@ export default function Main({ navigation }) {
             </View>
           </TouchableWithoutFeedback>
         </Modal>
+        
         <View
           style={{
             position: "absolute",
@@ -217,7 +218,7 @@ export default function Main({ navigation }) {
             width: "80%",
             alignSelf: "center",
             bottom: 40,
-            left: 290,
+            left: 300,
           }}
         >
           <Icon
@@ -300,7 +301,7 @@ const styles = StyleSheet.create({
   modalView: {
     height: "60%",
     width: "80%",
-    backgroundColor: "#f0efe1",
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
