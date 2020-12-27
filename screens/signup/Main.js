@@ -5,11 +5,7 @@ import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
 import { Avatar, Icon } from 'react-native-elements';
-
-//path to logo
-//the shade of white we are using
-const WHITE = "white";
-
+import { addJournalEntry, viewEntriesAtCoord } from '../../api/API';
 
 export const getCurrentLocation = () => {
   return new Promise((resolve, reject) => {
@@ -24,11 +20,20 @@ export default function Main({navigation}) {
   const [doneLoading, setDoneLoading] = React.useState(false);
   const [markers, setMarkers] = React.useState([]);
   const [mapView, setMapView] = React.useState(MapView.ref);
-
+  const [writeJournal, setWriteJournal] = React.useState(false);
+  const [readJournal, setReadJournal] = React.useState(false);
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  
   const onRegionChange = (region) => {
     setLatitude (region.latitude)
     setLongitude (region.longitude)
   }
+
+  const round = (num) => {
+    return Number.parseFloat(num).toFixed(3)
+  }
+
   React.useEffect(() => {
     getCurrentLocation().then(position => {
       if (position) {
@@ -39,17 +44,23 @@ export default function Main({navigation}) {
   }, []);
 });
 
-  const addEntry = () => {
+  const addEntry = async () => {
     setWriteJournal(false)
-    let latlng = {latitude: latitude, longitude: longitude}
-    const eps = 0.007
+    const roundedlat = Number(round(latitude))
+    const roundedlong = Number(round(longitude))
+    await addJournalEntry(roundedlat, roundedlong, title, description);
+    let latlng = {latitude: roundedlat, longitude: roundedlong}
     setMarkers(markers => 
-      [...(markers.filter((e) => (Math.abs(e.latitude - latitude) > eps && Math.abs(e.longitude-longitude) >eps))), latlng])
+      [...(markers.filter((e) => e.latitude != roundedlat && e.longitude!=roundedlong)), latlng])
+
   }
-    const [writeJournal, setWriteJournal] = React.useState(false);
-    const [readJournal, setReadJournal] = React.useState(false);
-    const [journal, setJournal] = React.useState(false);
-    
+
+  const viewEntries = async (marker) => {
+    setReadJournal(true)
+    viewEntriesAtCoord(marker.latitude, marker.longitude).then(data => console.log(data))
+
+  }
+
     if (!doneLoading){
       return null
     } else{  
@@ -78,7 +89,7 @@ export default function Main({navigation}) {
     <InputAccessoryView nativeID={inputAccessoryViewID}>
         <View style={{alignItems:'flex-end', paddingHorizontal:'10%'}}>
         <Button
-          onPress={() => setWriteJournal(false)}
+          onPress={addEntry}
           title="submit"   
           
         />
@@ -88,9 +99,7 @@ export default function Main({navigation}) {
             animationType="slide"
             transparent={true}
             visible={writeJournal}
-            onRequestClose={() => {
-              setWriteJournal(false);
-            }}
+            onRequestClose={() => setWriteJournal(false)}
           >
             
             <TouchableWithoutFeedback onPress={() => setWriteJournal(false)}>
@@ -101,12 +110,13 @@ export default function Main({navigation}) {
         
                   <Text style={{ fontFamily: "Roboto", fontSize: 20, color:'#73715a' }}>
                     {" "}
-                    add journal
+                    Add journal
                   </Text>
                   <View style={{width:'80%', marginTop:'8%'}}>
                   <TextInput 
                   placeholder='title'
                   style={{height:30, borderBottomColor:'#73715a', borderBottomWidth:2}}
+                  onChangeText = {text => setTitle(text)}
                   />
                   </View>
                   <View style={{width:'90%', marginTop:'15%', height:'40%'}}>
@@ -115,13 +125,14 @@ export default function Main({navigation}) {
                 inputAccessoryViewID={inputAccessoryViewID}
                   placeholder='write something...'
                   style={{height:'100%', borderColor:'#73715a50', borderWidth:1.5, backgroundColor:'#FFFFFF50'}}
+                  onChangeText = {text => setDescription(text)}
                   />
                   </View>
      
                  <View style={{width:'60%', alignSelf:'center', justifyContent:'center', 
                  alignItems:'center', marginTop:'10%', backgroundColor:'#666344', borderRadius:5}}>
                      <TouchableOpacity 
-                        onPress={()=> addEntry()}
+                        onPress={addEntry}
                         style={{paddingVertical:10}}>
                         <Text style={{color: 'white'}}>Submit</Text>
                      </TouchableOpacity>
@@ -196,7 +207,7 @@ export default function Main({navigation}) {
         <Marker
           key={index}
           coordinate={marker}
-          onPress={()=>setReadJournal(true)}
+          onPress={()=>viewEntries(marker)}
         />
        ))
         }

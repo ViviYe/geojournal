@@ -17,6 +17,7 @@ const failure = (value) => {
 export const isSignedIn = () => {
   return new Promise((resolve, reject) => {
     getSessionToken().then((res) => {
+      console.log(res)
         if (res !== null) {
           resolve(true);
         } else {
@@ -37,14 +38,13 @@ export const login = async (e, pwd) => {
     })
   }).then(res => res.json())
   .then(async data =>{
-    console.log(data)
     if (data.error){
       return failure(data)
     }
     else {
-    await setUpdateToken(data.updateToken);
-    await setSessionToken(data.sessionToken);
-    return success(data)
+      await setUpdateToken(data.update_token);
+      await setSessionToken(data.session_token);
+      return success(data)
     }
   })
   }
@@ -62,14 +62,14 @@ export const register = async (e, pwd) => {
     })
   }).then(res => res.json())
   .then(async data =>{
-    console.log(data)
     if (data.error){
       return failure(data)
     }
     else {
-    await setUpdateToken(data.updateToken);
-    await setSessionToken(data.sessionToken);
+    await setUpdateToken(data.update_token);
+    await setSessionToken(data.session_token);
     return success(data)
+  
     }
   })
 }
