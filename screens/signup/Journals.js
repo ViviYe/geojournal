@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  StyleSheet,
   View,
   Image,
   Text,
@@ -7,11 +8,13 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
 import { Avatar } from "react-native-elements";
+import { LinearGradient } from "expo-linear-gradient";
 
 //path to logo
 //the shade of white we are using
@@ -163,69 +166,86 @@ const Card = ({ title, author, location, date }) => (
  */
 export default function Journal({ navigation }) {
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-     onPress={()=> navigation.push("journal-detail", item)}
-    >
-    <Card
-      title={item.title}
-      message={item.description}
-      location={item.address}
-      date={item.created_at}
-      author={item.author}
-    />
+    <TouchableOpacity onPress={() => navigation.push("journal-detail", item)}>
+      <Card
+        title={item.title}
+        message={item.description}
+        location={item.address}
+        date={item.created_at}
+        author={item.author}
+      />
     </TouchableOpacity>
   );
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#DDE7C7", flex: 1 }}>
-      <TouchableOpacity
-        onPress={() => navigation.push("friends")}
-        style={{
-          backgroundColor: "#74C69D",
-          height: 40,
-          width: "30%",
-          alignSelf: "flex-end",
-          shadowColor: "black",
-          shadowRadius: 4,
-          shadowOpacity: 0.25,
-          shadowOffset: { width: 0, height: 2 },
-          marginRight: 30,
-          marginVertical: 20,
-          borderRadius: 20,
-          justifyContent: "center",
-        }}
+    <View style={styles.container}>
+      <AnimatedLinearGradient
+        colors={[
+          Color.greenGradientOne,
+          Color.greenGradientTwo,
+          Color.greenGradientThree,
+          Color.greenGradientFour,
+        ]}
+        style={styles.container}
       >
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 15,
-            color: "#F4F1DE",
-            fontFamily: "RobotoMono-Regular",
-          }}
-        >
-          Friends
-        </Text>
-      </TouchableOpacity>
+        <SafeAreaView style={styles.container}>
+          <TouchableOpacity
+            onPress={() => navigation.push("friends")}
+            style={{
+              backgroundColor: "#74C69D",
+              height: 40,
+              width: "30%",
+              alignSelf: "flex-end",
+              shadowColor: "black",
+              shadowRadius: 4,
+              shadowOpacity: 0.25,
+              shadowOffset: { width: 0, height: 2 },
+              marginRight: 30,
+              marginVertical: 20,
+              borderRadius: 20,
+              justifyContent: "center",
+            }}
+          >
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 15,
+                color: "#F4F1DE",
+                fontFamily: "RobotoMono-Regular",
+              }}
+            >
+              Friends
+            </Text>
+          </TouchableOpacity>
 
-      <View style={{ margin: "3%", marginLeft: "10%" }}>
-        <Text
-          style={{
-            fontSize: 30,
-            color: "#92B6B1",
-            fontFamily: "RobotoMono-Regular",
-            marginVertical: "5%",
-            fontWeight: "200",
-          }}
-        >
-          Nearby Journals
-        </Text>
-      </View>
-      <FlatList
-        style={{ paddingTop: 20 }}
-        data={JournalDummy}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
+          <View style={{ margin: "3%", marginLeft: "10%" }}>
+            <Text
+              style={{
+                fontSize: 30,
+                color: "#92B6B1",
+                fontFamily: "RobotoMono-Regular",
+                marginVertical: "5%",
+                fontWeight: "200",
+              }}
+            >
+              Nearby Journals
+            </Text>
+          </View>
+          <FlatList
+            style={{ paddingTop: 20 }}
+            data={JournalDummy}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        </SafeAreaView>
+      </AnimatedLinearGradient>
+    </View>
   );
 }
+
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
