@@ -15,7 +15,8 @@ export default {
   paleGreenBackground: "#DDE7C7",
   titleBlue: "#92B6B1",
   signUpBlue: "#2A9D8F",
-  greenGradientOne: "#edeec9",
-  greenGradientTwo: "#bfd8bd",
-  greenGradientThree: "#77bfa3",
+  greenGradientOne: "#fcf6bd",
+  greenGradientTwo: "#edeec9",
+  greenGradientThree: "#bfd8bd",
+  greenGradientFour: "#77bfa3",
 };

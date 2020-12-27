@@ -12,11 +12,13 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   TextInput,
+  Animated,
 } from "react-native";
 import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
 import { Avatar, Icon } from "react-native-elements";
+import { LinearGradient } from "expo-linear-gradient";
 
 //path to logo
 //the shade of white we are using
@@ -100,130 +102,148 @@ export default function Friends({ navigation }) {
   const renderUser = ({ item }) => <UserCard email={item.email} />;
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: Color.paleGreenBackground, flex: 1 }}
-    >
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
+    <View style={styles.container}>
+      <AnimatedLinearGradient
+        colors={[
+          Color.greenGradientOne,
+          Color.greenGradientTwo,
+          Color.greenGradientThree,
+          Color.greenGradientFour,
+        ]}
+        style={styles.container}
       >
-        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-          <View style={styles.centeredView}>
-            <TouchableWithoutFeedback>
-              <View style={styles.modalView}>
-                <Text
-                  style={{
-                    fontFamily: "RobotoMono-Regular",
-                    fontSize: 15,
-                    color: "#73715a",
-                  }}
-                >
-                  {" "}
-                  search friends by email
-                </Text>
-                <View
-                  style={{
-                    height: "10%",
-                    width: "90%",
-                    marginVertical: "3%",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Icon
-                    style={{ flex: 1, justifyContent: "center" }}
-                    name="search"
-                    type="font-awesome-5"
-                    size={15}
-                  />
-                  <TextInput
-                    style={{
-                      height: "100%",
-                      borderColor: "gray",
-                      borderWidth: 1,
-                      borderWidth: 0,
-                      borderBottomWidth: 2,
-                      borderBottomColor: "#73715a",
-                      flex: 1,
-                    }}
-                  />
-                </View>
-                <View
-                  style={{
-                    alignSelf: "flex-end",
-                    width: "30%",
-                    height: "8%",
-                    backgroundColor: "#BCBFA7",
-                    borderRadius: 5,
-                    marginTop: 10,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <TouchableOpacity>
+        <SafeAreaView style={styles.container}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(false);
+            }}
+          >
+            <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+              <View style={styles.centeredView}>
+                <TouchableWithoutFeedback>
+                  <View style={styles.modalView}>
                     <Text
-                      style={{ fontFamily: "RobotoMono-Regular", fontSize: 12 }}
+                      style={{
+                        fontFamily: "RobotoMono-Regular",
+                        fontSize: 15,
+                        color: "#73715a",
+                      }}
                     >
-                      Search
+                      {" "}
+                      search friends by email
                     </Text>
-                  </TouchableOpacity>
-                </View>
+                    <View
+                      style={{
+                        height: "10%",
+                        width: "90%",
+                        marginVertical: "3%",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Icon
+                        style={{ flex: 1, justifyContent: "center" }}
+                        name="search"
+                        type="font-awesome-5"
+                        size={15}
+                      />
+                      <TextInput
+                        style={{
+                          height: "100%",
+                          borderColor: "gray",
+                          borderWidth: 1,
+                          borderWidth: 0,
+                          borderBottomWidth: 2,
+                          borderBottomColor: "#73715a",
+                          flex: 1,
+                        }}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        alignSelf: "flex-end",
+                        width: "30%",
+                        height: "8%",
+                        backgroundColor: "#BCBFA7",
+                        borderRadius: 5,
+                        marginTop: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <TouchableOpacity>
+                        <Text
+                          style={{
+                            fontFamily: "RobotoMono-Regular",
+                            fontSize: 12,
+                          }}
+                        >
+                          Search
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
 
-                <FlatList
-                  style={{ marginTop: 20 }}
-                  data={friends_search}
-                  renderItem={renderUser}
-                  keyExtractor={(item) => item.id}
-                />
+                    <FlatList
+                      style={{ marginTop: 20 }}
+                      data={friends_search}
+                      renderItem={renderUser}
+                      keyExtractor={(item) => item.id}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
             </TouchableWithoutFeedback>
+          </Modal>
+
+          <View
+            style={{
+              padding: "10%",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: "20%",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 30,
+                color: "#92B6B1",
+                fontFamily: "RobotoMono-Regular",
+                alignItems: "center",
+                marginRight: 10,
+              }}
+            >
+              {" "}
+              Friends{" "}
+            </Text>
+            <Icon
+              name="user-plus"
+              type="font-awesome-5"
+              onPress={() => setModalVisible(true)}
+            ></Icon>
           </View>
-        </TouchableWithoutFeedback>
-      </Modal>
 
-      <View
-        style={{
-          padding: "10%",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginTop: "20%",
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 30,
-            color: "#92B6B1",
-            fontFamily: "RobotoMono-Regular",
-            alignItems: "center",
-            marginRight: 10,
-          }}
-        >
-          {" "}
-          Friends{" "}
-        </Text>
-        <Icon
-          name="user-plus"
-          type="font-awesome-5"
-          onPress={() => setModalVisible(true)}
-        ></Icon>
-      </View>
-
-      <FlatList
-        style={{ marginTop: 20 }}
-        data={friends}
-        renderItem={renderItem}
-        keyExtractor={(item) => item}
-      />
-    </SafeAreaView>
+          <FlatList
+            style={{ marginTop: 20 }}
+            data={friends}
+            renderItem={renderItem}
+            keyExtractor={(item) => item}
+          />
+        </SafeAreaView>
+      </AnimatedLinearGradient>
+    </View>
   );
 }
 
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",

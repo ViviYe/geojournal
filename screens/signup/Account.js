@@ -150,6 +150,7 @@ export default function Account({ navigation }) {
           Color.greenGradientOne,
           Color.greenGradientTwo,
           Color.greenGradientThree,
+          Color.greenGradientFour,
         ]}
         style={styles.container}
       >
