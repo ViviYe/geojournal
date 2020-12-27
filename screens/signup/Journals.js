@@ -19,6 +19,7 @@ const WHITE = "white";
 const JournalDummy = [
   {
     id: 1,
+    author: "person@cornell.edu",
     title: "First journal entry",
     description: "today was a bad day, I did nothing, WAHHHH",
     created_at: "Dec 25, 2020",
@@ -28,6 +29,7 @@ const JournalDummy = [
   },
   {
     id: 2,
+    author: "person@cornell.edu",
     title: "Second journal entry",
     description: "mehhh",
     created_at: "Dec 25, 2020",
@@ -37,6 +39,7 @@ const JournalDummy = [
   },
   {
     id: 3,
+    author: "person@cornell.edu",
     title: "Third journal entry",
     description: "HEHEHEHE",
     created_at: "Dec 25, 2020",
@@ -46,6 +49,7 @@ const JournalDummy = [
   },
   {
     id: 4,
+    author: "person@cornell.edu",
     title: "Forth journal entry",
     description: "HEHEHEHE",
     created_at: "Dec 25, 2020",
@@ -55,7 +59,7 @@ const JournalDummy = [
   },
 ];
 
-const Card = ({ title, message, location, date }) => (
+const Card = ({ title, author, location, date }) => (
   <View
     style={{
       backgroundColor: "#F4F1DE",
@@ -77,7 +81,7 @@ const Card = ({ title, message, location, date }) => (
         width: "35%",
         backgroundColor: "#2A9D8F",
         position: "absolute",
-        marginTop: -15,
+        top: -15,
         borderRadius: 10,
         shadowColor: "grey",
         shadowRadius: 2,
@@ -89,53 +93,61 @@ const Card = ({ title, message, location, date }) => (
     >
       <Text style={{ color: "white", fontSize: 12 }}>{date}</Text>
     </View>
+
+    <View
+      style={{
+        height: 35,
+        width: "50%",
+        backgroundColor: "#F2CC8F",
+        position: "absolute",
+        bottom: -15,
+        right: -10,
+        borderRadius: 10,
+        shadowColor: "grey",
+        shadowRadius: 2,
+        shadowOpacity: 0.8,
+        shadowOffset: { width: 0, height: 2 },
+        justifyContent: "center",
+        alignItems: "center",
+        
+      }}
+    >
+      <Text style={{ color: "white", fontSize: 12 }}>{author}</Text>
+    </View>
     <Text
       style={{
         fontSize: 15,
         color: "#575632",
         fontFamily: "Avenir",
-        fontWeight: "600",
+        fontWeight:'600',
         alignItems: "center",
       }}
     >
       {" "}
       {title}{" "}
     </Text>
-
+    
     <Text
-      style={{
-        fontSize: 12,
-        color: "#575632",
-        fontFamily: "Avenir",
-        alignItems: "center",
-        margin: 2,
-        marginTop: 10,
-      }}
-    >
-      {" "}
-      {location}{" "}
-    </Text>
-
-    {/* <View style={{ alignItems: "flex-end" }}>
-      <Text
         style={{
-          fontSize: 10,
+          fontSize: 12,
           color: "#575632",
-          fontFamily: "Roboto",
+          fontFamily: "Avenir",
           alignItems: "center",
+          margin: 2,
+          marginTop: 10
         }}
       >
         {" "}
-        Created at {location}{" "}
+        {location}{" "}
       </Text>
-    </View> */}
+
   </View>
 );
 
 /**
  * Start screen component
  */
-export default function Account({ navigation }) {
+export default function Journal({ navigation }) {
   const [friends, setFriends] = React.useState(0);
   const renderItem = ({ item }) => (
     <Card
@@ -143,11 +155,12 @@ export default function Account({ navigation }) {
       message={item.description}
       location={item.address}
       date={item.created_at}
+      author={item.author}
     />
   );
 
   return (
-    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: "#DDE7C7", flex: 1 }}>
       <TouchableOpacity
         onPress={() => navigation.push("friends")}
         style={{
@@ -165,7 +178,8 @@ export default function Account({ navigation }) {
           justifyContent: "center",
         }}
       >
-        <Text
+       
+       <Text
           style={{
             alignSelf: "center",
             fontSize: 15,
@@ -176,7 +190,8 @@ export default function Account({ navigation }) {
           Friends
         </Text>
       </TouchableOpacity>
-      <View style={{ alignItems: "center", marginTop: "3%" }}>
+    
+      <View style={{  margin: "3%", marginLeft:'10%' }}>
         <Text
           style={{
             fontSize: 30,
@@ -186,10 +201,9 @@ export default function Account({ navigation }) {
             fontWeight: "200",
           }}
         >
-          Alanna Zhou
+          Nearby Jounrals
         </Text>
       </View>
-
       <FlatList
         style={{ paddingTop: 20 }}
         data={JournalDummy}

@@ -250,7 +250,7 @@ export default function Main({ navigation }) {
             size="large"
             rounded
             icon={{ name: "book", color: "grey", type: "font-awesome-5" }}
-            onPress={() => navigation.push("friends")}
+            onPress={() => navigation.push("journal")}
           />
         </View>
 

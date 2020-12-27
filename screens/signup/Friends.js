@@ -87,7 +87,7 @@ const UserCard = ({ email }) => (
 /**
  * Start screen component
  */
-export default function StartScreen({ navigation }) {
+export default function Friends({ navigation }) {
   const [friends, setFriends] = React.useState([
     "yy453@cornell.edu",
     "asz33@cornell.edu",
