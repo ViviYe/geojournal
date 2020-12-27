@@ -40,7 +40,7 @@ const Card = ({ name }) => (
   <View
     style={{
       backgroundColor: "#F6F5D4",
-      width: "80%",
+      width: "90%",
       alignSelf: "center",
       borderRadius: 10,
       marginVertical: 10,

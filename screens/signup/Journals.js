@@ -63,7 +63,7 @@ const Card = ({ title, author, location, date }) => (
   <View
     style={{
       backgroundColor: "#F4F1DE",
-      width: "80%",
+      width: "90%",
       alignSelf: "center",
       borderRadius: 20,
       marginVertical: 15,
@@ -149,7 +149,7 @@ const Card = ({ title, author, location, date }) => (
         fontFamily: "RobotoMono-Regular",
         alignItems: "center",
         margin: 2,
-        marginTop: 10,
+        marginVertical: 10,
       }}
     >
       {" "}
@@ -162,8 +162,10 @@ const Card = ({ title, author, location, date }) => (
  * Start screen component
  */
 export default function Journal({ navigation }) {
-  const [friends, setFriends] = React.useState(0);
   const renderItem = ({ item }) => (
+    <TouchableOpacity
+     onPress={()=> navigation.push("journal-detail", item)}
+    >
     <Card
       title={item.title}
       message={item.description}
@@ -171,6 +173,7 @@ export default function Journal({ navigation }) {
       date={item.created_at}
       author={item.author}
     />
+    </TouchableOpacity>
   );
 
   return (
