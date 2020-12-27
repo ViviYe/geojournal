@@ -14,22 +14,23 @@ const WHITE = "white";
 export default function StartScreen({ navigation }) {
   return (
 
-    <View style={{backgroundColor: "#BCBFA7", flex: 1, alignItems:"center", paddingTop: "60%"}}>
-      <View>
-      <Text style={{fontSize:40, color: "#F6F5D4", fontFamily: "Roboto"}}>Sign Up</Text>
+    <View style={{backgroundColor: "#DDE7C7", flex: 1, alignItems:"center", paddingTop: "60%"}}>
+        <Image style={{width: 120, height: 120}}source={require('../../assets/earth.png')}/>
+      <View style={{marginTop: '2%'}}>
+      <Text style={{fontSize:45, color: "#92B6B1", fontFamily: "Roboto"}}>geo•journal</Text>
       </View>
       <View style={{marginTop: "20%", width:"50%"}}>
       <LoginButton
           onPress={() => navigation.push("signup")}
-          color="#5d6143"
+          color="white"
           text="sign up"
-          background="#F6F5D4"
+          background="#2A9D8F"
         />
         <LoginButton
           onPress={() => navigation.push("signin")}
-          color="white"
+          color="#5d6143"
           text="sign in"
-          background="#5d6143"
+          background="#F6F5D4"
         />
         </View>
     </View>
