@@ -94,27 +94,27 @@ const Card = ({ title, message, location, date }) => (
         fontSize: 15,
         color: "#575632",
         fontFamily: "Avenir",
-        fontWeight:'600',
+        fontWeight: "600",
         alignItems: "center",
       }}
     >
       {" "}
       {title}{" "}
     </Text>
-    
+
     <Text
-        style={{
-          fontSize: 12,
-          color: "#575632",
-          fontFamily: "Avenir",
-          alignItems: "center",
-          margin: 2,
-          marginTop: 10
-        }}
-      >
-        {" "}
-        {location}{" "}
-      </Text>
+      style={{
+        fontSize: 12,
+        color: "#575632",
+        fontFamily: "Avenir",
+        alignItems: "center",
+        margin: 2,
+        marginTop: 10,
+      }}
+    >
+      {" "}
+      {location}{" "}
+    </Text>
 
     {/* <View style={{ alignItems: "flex-end" }}>
       <Text
@@ -129,7 +129,6 @@ const Card = ({ title, message, location, date }) => (
         Created at {location}{" "}
       </Text>
     </View> */}
-   
   </View>
 );
 
@@ -184,7 +183,7 @@ export default function StartScreen({ navigation }) {
             color: "#92B6B1",
             fontFamily: "Roboto",
             marginVertical: "5%",
-            fontWeight: '200'
+            fontWeight: "200",
           }}
         >
           Alanna Zhou

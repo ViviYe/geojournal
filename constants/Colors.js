@@ -12,4 +12,7 @@ export default {
   backgroundlight: "#FBFBFB",
   backgroundgray: "#f2f1ed",
   darkBlue: "#475475",
+  paleGreenBackground: "#DDE7C7",
+  titleBlue: "#92B6B1",
+  signUpBlue: "#2A9D8F",
 };

@@ -22,38 +22,40 @@ export default function SignUp({ navigation }) {
   return (
     <View
       style={{
-        backgroundColor: "#BCBFA7",
+        backgroundColor: Color.paleGreenBackground,
         flex: 1,
         alignItems: "center",
         paddingTop: "40%",
       }}
     >
-      <Text style={{ fontSize: 40, color: "#F6F5D4", fontFamily: "Roboto" }}>
+      <Text
+        style={{ fontSize: 40, color: Color.titleBlue, fontFamily: "Roboto" }}
+      >
         Sign Up
       </Text>
       <View style={{ width: "80%", marginTop: 30 }}>
         <TextInput
           style={{ marginVertical: "3%" }}
           label="Email"
-          theme={{ colors: { primary: "grey" } }}
+          theme={{ colors: { primary: "white" } }}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={{ marginVertical: "3%" }}
           label="Username"
-          theme={{ colors: { primary: "grey" } }}
+          theme={{ colors: { primary: "white" } }}
           onChangeText={(text) => setName(text)}
         />
         <TextInput
           label="Password"
-          theme={{ colors: { primary: "grey" } }}
+          theme={{ colors: { primary: "white" } }}
           style={{ marginVertical: "3%" }}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
         />
         <TextInput
           label="Confirm Password"
-          theme={{ colors: { primary: "grey" } }}
+          theme={{ colors: { primary: "white" } }}
           style={{ marginVertical: "3%" }}
           secureTextEntry
         />
@@ -62,8 +64,8 @@ export default function SignUp({ navigation }) {
         <LoginButton
           onPress={() => navigation.push("signin")}
           color="white"
-          text="sign in"
-          background="#5d6143"
+          text="sign up"
+          background={Color.signUpBlue}
         />
       </View>
     </View>

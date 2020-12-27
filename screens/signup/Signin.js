@@ -20,13 +20,15 @@ export default function SignIn({ navigation }) {
   return (
     <View
       style={{
-        backgroundColor: "#BCBFA7",
+        backgroundColor: Color.paleGreenBackground,
         flex: 1,
         alignItems: "center",
         paddingTop: "40%",
       }}
     >
-      <Text style={{ fontSize: 40, color: "#F6F5D4", fontFamily: "Roboto" }}>
+      <Text
+        style={{ fontSize: 40, color: Color.titleBlue, fontFamily: "Roboto" }}
+      >
         Sign In
       </Text>
       <View style={{ width: "80%", marginTop: 30 }}>
