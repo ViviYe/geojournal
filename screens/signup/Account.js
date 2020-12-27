@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  StyleSheet,
   View,
   Image,
   Text,
@@ -7,11 +8,13 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
 import { Avatar } from "react-native-elements";
+import { LinearGradient } from "expo-linear-gradient";
 
 //path to logo
 //the shade of white we are using
@@ -123,20 +126,6 @@ const Card = ({ title, message, location, date }) => (
       {" "}
       {location}{" "}
     </Text>
-
-    {/* <View style={{ alignItems: "flex-end" }}>
-      <Text
-        style={{
-          fontSize: 10,
-          color: "#575632",
-          fontFamily: "Roboto",
-          alignItems: "center",
-        }}
-      >
-        {" "}
-        Created at {location}{" "}
-      </Text>
-    </View> */}
   </View>
 );
 
@@ -155,57 +144,73 @@ export default function Account({ navigation }) {
   );
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: Color.paleGreenBackground, flex: 1 }}
-    >
-      <TouchableOpacity
-        onPress={() => navigation.push("friends")}
-        style={{
-          backgroundColor: "#74C69D",
-          height: 40,
-          width: "30%",
-          alignSelf: "flex-end",
-          shadowColor: "black",
-          shadowRadius: 4,
-          shadowOpacity: 0.25,
-          shadowOffset: { width: 0, height: 2 },
-          marginRight: 30,
-          marginVertical: 20,
-          borderRadius: 20,
-          justifyContent: "center",
-        }}
+    <View style={styles.container}>
+      <AnimatedLinearGradient
+        colors={[
+          Color.greenGradientOne,
+          Color.greenGradientTwo,
+          Color.greenGradientThree,
+        ]}
+        style={styles.container}
       >
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 15,
-            color: "#F4F1DE",
-            fontFamily: "RobotoMono-Regular",
-          }}
-        >
-          Friends
-        </Text>
-      </TouchableOpacity>
-      <View style={{ alignItems: "center", marginTop: "3%" }}>
-        <Text
-          style={{
-            fontSize: 30,
-            color: "#92B6B1",
-            fontFamily: "RobotoMono-Regular",
-            marginVertical: "5%",
-            fontWeight: "200",
-          }}
-        >
-          Alanna Zhou
-        </Text>
-      </View>
+        <SafeAreaView style={styles.container}>
+          <TouchableOpacity
+            onPress={() => navigation.push("friends")}
+            style={styles.friends}
+          >
+            <Text style={styles.text}>Friends</Text>
+          </TouchableOpacity>
+          <View style={styles.list}>
+            <Text style={styles.name}>My Journal</Text>
+          </View>
 
-      <FlatList
-        style={{ paddingTop: 20 }}
-        data={JournalDummy}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
+          <FlatList
+            style={styles.flatlist}
+            data={JournalDummy}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        </SafeAreaView>
+      </AnimatedLinearGradient>
+    </View>
   );
 }
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
+
+const styles = StyleSheet.create({
+  linearGradient: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  friends: {
+    backgroundColor: "#74C69D",
+    height: 40,
+    width: "30%",
+    alignSelf: "flex-end",
+    shadowColor: "black",
+    shadowRadius: 4,
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 2 },
+    marginRight: 30,
+    marginVertical: 20,
+    borderRadius: 20,
+    justifyContent: "center",
+  },
+  text: {
+    alignSelf: "center",
+    fontSize: 15,
+    color: "#F4F1DE",
+    fontFamily: "RobotoMono-Regular",
+  },
+  name: {
+    fontSize: 30,
+    color: "#92B6B1",
+    fontFamily: "RobotoMono-Regular",
+    marginVertical: "5%",
+    fontWeight: "200",
+  },
+  list: { alignItems: "center", marginTop: "3%" },
+  flatlist: { paddingTop: 20 },
+});
