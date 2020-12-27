@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "#92B6B1",
     fontFamily: "RobotoMono-Regular",
-    marginVertical: "5%",
+    marginVertical: "10%",
     fontWeight: "200",
   },
   list: { alignItems: "center", marginTop: "3%" },
