@@ -15,6 +15,7 @@ import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
 import { Avatar } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
+import { viewAllEntries } from '../../api/API';
 
 //path to logo
 //the shade of white we are using
@@ -138,6 +139,16 @@ const Card = ({ title, message, location, date }) => (
  */
 export default function Account({ navigation }) {
   const [friends, setFriends] = React.useState(0);
+  const [myjournal, setMyjournal] = React.useState([]);
+
+  React.useEffect(() => {
+    viewAllEntries().then(res => {
+      if (res) {
+        setMyjournal(res.data)
+      }
+  }, []);
+});
+
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.push("journal-detail", item)}>
       <Card
@@ -173,7 +184,7 @@ export default function Account({ navigation }) {
 
           <FlatList
             style={styles.flatlist}
-            data={JournalDummy}
+            data={myjournal}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
           />

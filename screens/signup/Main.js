@@ -115,6 +115,7 @@ export default function Main({navigation}) {
   const [writeJournal, setWriteJournal] = React.useState(false);
   const [readJournal, setReadJournal] = React.useState(false);
   const [title, setTitle] = React.useState("");
+  const [entries, setEntries] = React.useState([]);
   const [description, setDescription] = React.useState("");
   
   const onRegionChange = (region) => {
@@ -166,7 +167,7 @@ const renderItem = ({ item }) => (
 
   const viewEntries = async (marker) => {
     setReadJournal(true)
-    viewEntriesAtCoord(marker.latitude, marker.longitude).then(data => console.log(data))
+    viewEntriesAtCoord(marker.latitude, marker.longitude).then(data => setEntries(data.data))
 
   }
 
@@ -277,7 +278,7 @@ const renderItem = ({ item }) => (
                  
                   <FlatList
               style={{ paddingTop: 20, flex: 1}}
-            data={JournalDummy}
+            data={entries}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
           />
