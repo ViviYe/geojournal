@@ -237,22 +237,28 @@ export default function Main({ navigation }) {
             paddingHorizontal: "5%",
             flexDirection: "row",
             zIndex: 100,
-            paddingVertical: 30,
+            paddingVertical: "15%",
           }}
         >
-          <Avatar
-            size="large"
-            rounded
-            icon={{ name: "user", color: "grey", type: "font-awesome" }}
-            onPress={() => navigation.push("account")}
-          />
-          <View style={{ width: "60%" }} />
-          <Avatar
+          <TouchableOpacity onPress={() => navigation.push("account")}>
+            <Image
+              style={{ width: 40, height: 40 }}
+              source={require("../../assets/user.png")}
+            />
+          </TouchableOpacity>
+          <View style={{ width: "78%" }} />
+          {/* <Avatar
             size="large"
             rounded
             icon={{ name: "book", color: "grey", type: "font-awesome-5" }}
             onPress={() => navigation.push("journal")}
-          />
+          /> */}
+          <TouchableOpacity onPress={() => navigation.push("journal")}>
+            <Image
+              style={{ width: 40, height: 40 }}
+              source={require("../../assets/users.png")}
+            />
+          </TouchableOpacity>
         </View>
 
         <MapView
