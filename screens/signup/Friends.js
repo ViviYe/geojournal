@@ -96,9 +96,12 @@ const UserCard = ({ email }) => (
  */
 export default function Friends({ navigation }) {
   const [friends, setFriends] = React.useState([
-    "yy453@cornell.edu",
-    "asz33@cornell.edu",
-    "yl2795@cornell.edu",
+    "Vivi",
+    "Alanna",
+    "Olivia",
+    "Penmy",
+    "Jiunn",
+    "Shino"
   ]);
   const [modalVisible, setModalVisible] = React.useState(false);
 

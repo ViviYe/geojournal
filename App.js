@@ -28,7 +28,7 @@ export default function App() {
   } else {
     return <NavigationContainer>
       {/* {signedIn ? <LoggedInStack /> : <LoggedOutStack />} */}
-      {<LoggedInStack/>}
+      {<LoggedOutStack/>}
       </NavigationContainer>;
   }
 }
