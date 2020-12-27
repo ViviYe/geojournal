@@ -127,7 +127,7 @@ export default function Main({ navigation }) {
                 <View style={styles.modalView}>
                   <Text
                     style={{
-                      fontFamily: "Roboto",
+                      fontFamily: "RobotoMono-Regular",
                       fontSize: 20,
                       color: "#73715a",
                     }}
@@ -135,7 +135,13 @@ export default function Main({ navigation }) {
                     {" "}
                     add journal
                   </Text>
-                  <View style={{ width: "80%", marginTop: "8%" }}>
+                  <View
+                    style={{
+                      width: "80%",
+                      marginTop: "8%",
+                      fontFamily: "RobotoMono-Regular",
+                    }}
+                  >
                     <TextInput
                       placeholder="title"
                       style={{
@@ -157,6 +163,8 @@ export default function Main({ navigation }) {
                         borderColor: "#73715a50",
                         borderWidth: 1.5,
                         backgroundColor: "#FFFFFF50",
+                        fontFamily: "RobotoMono-Regular",
+                        textAlignVertical: "top",
                       }}
                     />
                   </View>
@@ -198,7 +206,7 @@ export default function Main({ navigation }) {
                 <View style={styles.modalView}>
                   <Text
                     style={{
-                      fontFamily: "Roboto",
+                      fontFamily: "RobotoMono-Regular",
                       fontSize: 20,
                       color: "#73715a",
                     }}
