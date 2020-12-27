@@ -1,4 +1,4 @@
-import {setUpdateToken, setSessionToken} from "./token"
+import {getSessionToken, setUpdateToken, setSessionToken} from "./token"
 import AsyncStorage from '@react-native-community/async-storage';
 
 const BASE_URL = 'https://geojournal.herokuapp.com/'
@@ -16,8 +16,7 @@ const failure = (value) => {
 
 export const isSignedIn = () => {
   return new Promise((resolve, reject) => {
-    AsyncStorage.getItem("@session_id")
-      .then((res) => {
+    getSessionToken().then((res) => {
         if (res !== null) {
           resolve(true);
         } else {
