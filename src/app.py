@@ -15,7 +15,11 @@ db_filename = "geojournal.db"
 app = Flask(__name__)
 
 # https://radar-python.readthedocs.io/en/latest/
-RADAR_SECRET_KEY = os.getenv("RADAR_SECRET_KEY")
+try:
+    RADAR_SECRET_KEY = os.getenv("RADAR_SECRET_KEY")
+except:
+    RADAR_SECRET_KEY = os.environ["RADAR_SECRET_KEY"]
+
 radar = RadarClient(RADAR_SECRET_KEY)
 RADIUS_KM = 1
 
