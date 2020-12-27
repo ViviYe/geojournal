@@ -246,7 +246,7 @@ export default function Main({ navigation }) {
             paddingHorizontal: "5%",
             flexDirection: "row",
             zIndex: 100,
-            paddingVertical: 30,
+            paddingVertical: "15%",
           }}
         >
           <TouchableOpacity onPress={() => navigation.push("account")}>
