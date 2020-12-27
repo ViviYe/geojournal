@@ -5,7 +5,7 @@ import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
 import Color from "../../constants/Colors";
 import { Avatar, Icon } from 'react-native-elements';
-import { addJournalEntry, viewEntriesAtCoord } from '../../api/API';
+import { addJournalEntry, viewEntriesAtCoord, viewAllEntries } from '../../api/API';
 
 const JournalCard = ({ title, author, location, date }) => (
   <View
@@ -123,7 +123,7 @@ export default function Main({navigation}) {
   }
 
   const round = (num) => {
-    return Number.parseFloat(num).toFixed(3)
+    return Number(Number.parseFloat(num).toFixed(3))
   }
 
   React.useEffect(() => {
@@ -133,6 +133,11 @@ export default function Main({navigation}) {
         setLongitude(position.coords.longitude)
         setDoneLoading(true)
       }
+  
+      viewAllEntries().then(data =>
+        {const initialMarkers = data.data.map((entry, index) => ({latitude: entry.latitude, longitude: entry.longitude}))
+        setMarkers(initialMarkers)
+      })
   }, []);
 });
 
@@ -150,8 +155,8 @@ const renderItem = ({ item }) => (
 
   const addEntry = async () => {
     setWriteJournal(false)
-    const roundedlat = Number(round(latitude))
-    const roundedlong = Number(round(longitude))
+    const roundedlat = round(latitude)
+    const roundedlong = round(longitude)
     await addJournalEntry(roundedlat, roundedlong, title, description);
     let latlng = {latitude: roundedlat, longitude: roundedlong}
     setMarkers(markers => 
