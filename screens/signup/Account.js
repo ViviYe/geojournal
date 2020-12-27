@@ -74,7 +74,7 @@ const Card = ({ title, message, location, date }) => (
     <View
       style={{
         height: 35,
-        width: "50%",
+        width: "45%",
         backgroundColor: "#2A9D8F",
         position: "absolute",
         marginTop: -15,

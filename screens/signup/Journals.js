@@ -78,7 +78,7 @@ const Card = ({ title, author, location, date }) => (
     <View
       style={{
         height: 35,
-        width: "35%",
+        width: "45%",
         backgroundColor: "#2A9D8F",
         position: "absolute",
         top: -15,
@@ -91,13 +91,21 @@ const Card = ({ title, author, location, date }) => (
         alignItems: "center",
       }}
     >
-      <Text style={{ color: "white", fontSize: 12 }}>{date}</Text>
+      <Text
+        style={{
+          color: "white",
+          fontSize: 12,
+          fontFamily: "RobotoMono-Regular",
+        }}
+      >
+        {date}
+      </Text>
     </View>
 
     <View
       style={{
         height: 35,
-        width: "50%",
+        width: "65%",
         backgroundColor: "#F2CC8F",
         position: "absolute",
         bottom: -15,
@@ -109,38 +117,44 @@ const Card = ({ title, author, location, date }) => (
         shadowOffset: { width: 0, height: 2 },
         justifyContent: "center",
         alignItems: "center",
-        
       }}
     >
-      <Text style={{ color: "white", fontSize: 12 }}>{author}</Text>
+      <Text
+        style={{
+          color: "white",
+          fontSize: 12,
+          fontFamily: "RobotoMono-Regular",
+        }}
+      >
+        {author}
+      </Text>
     </View>
     <Text
       style={{
         fontSize: 15,
         color: "#575632",
-        fontFamily: "Avenir",
-        fontWeight:'600',
+        fontFamily: "RobotoMono-Regular",
+        fontWeight: "600",
         alignItems: "center",
       }}
     >
       {" "}
       {title}{" "}
     </Text>
-    
-    <Text
-        style={{
-          fontSize: 12,
-          color: "#575632",
-          fontFamily: "Avenir",
-          alignItems: "center",
-          margin: 2,
-          marginTop: 10
-        }}
-      >
-        {" "}
-        {location}{" "}
-      </Text>
 
+    <Text
+      style={{
+        fontSize: 12,
+        color: "#575632",
+        fontFamily: "RobotoMono-Regular",
+        alignItems: "center",
+        margin: 2,
+        marginTop: 10,
+      }}
+    >
+      {" "}
+      {location}{" "}
+    </Text>
   </View>
 );
 
@@ -178,30 +192,29 @@ export default function Journal({ navigation }) {
           justifyContent: "center",
         }}
       >
-       
-       <Text
+        <Text
           style={{
             alignSelf: "center",
             fontSize: 15,
             color: "#F4F1DE",
-            fontFamily: "Roboto",
+            fontFamily: "RobotoMono-Regular",
           }}
         >
           Friends
         </Text>
       </TouchableOpacity>
-    
-      <View style={{  margin: "3%", marginLeft:'10%' }}>
+
+      <View style={{ margin: "3%", marginLeft: "10%" }}>
         <Text
           style={{
             fontSize: 30,
             color: "#92B6B1",
-            fontFamily: "Roboto",
+            fontFamily: "RobotoMono-Regular",
             marginVertical: "5%",
             fontWeight: "200",
           }}
         >
-          Nearby Jounrals
+          Nearby Journals
         </Text>
       </View>
       <FlatList
