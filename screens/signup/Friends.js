@@ -69,20 +69,25 @@ const Card = ({ name }) => (
 const UserCard = ({ email }) => (
   <View
     style={{
-      backgroundColor: "#BCBFA7",
-      alignSelf: "center",
-      borderRadius: 10,
-      marginVertical: 10,
-      padding: 10,
-      width: "100%",
-      flexDirection: "row",
-      justifyContent: "center",
+      alignSelf: "flex-start",
+      marginVertical: "5%",
     }}
   >
-    <Text style={{ marginHorizontal: "10%", alignSelf: "center" }}>
+    <Text
+      style={{
+        marginHorizontal: "10%",
+        alignSelf: "flex-start",
+        fontSize: "12",
+        fontFamily: "RobotoMono-Regular",
+      }}
+    >
       {email}
+      {/* <Icon
+        name="plus"
+        type="font-awesome-5"
+        style={{ alignSelf: "flex-end" }}
+      /> */}
     </Text>
-    <Icon name="user-plus" type="font-awesome-5" />
   </View>
 );
 
@@ -132,20 +137,22 @@ export default function Friends({ navigation }) {
                         color: "#73715a",
                       }}
                     >
-                      {" "}
-                      search friends by email
+                      search users by email
                     </Text>
                     <View
                       style={{
                         height: "10%",
-                        width: "90%",
+                        width: "100%",
                         marginVertical: "3%",
                         flexDirection: "row",
                         justifyContent: "center",
                       }}
                     >
                       <Icon
-                        style={{ flex: 1, justifyContent: "center" }}
+                        style={{
+                          flex: 1,
+                          justifyContent: "center",
+                        }}
                         name="search"
                         type="font-awesome-5"
                         size={15}
@@ -153,41 +160,24 @@ export default function Friends({ navigation }) {
                       <TextInput
                         style={{
                           height: "100%",
+                          width: "50%",
                           borderColor: "gray",
-                          borderWidth: 1,
                           borderWidth: 0,
-                          borderBottomWidth: 2,
-                          borderBottomColor: "#73715a",
+                          borderBottomWidth: 1,
+                          borderBottomColor: Color.signUpBlue,
                           flex: 1,
                         }}
                       />
                     </View>
-                    <View
-                      style={{
-                        alignSelf: "flex-end",
-                        width: "30%",
-                        height: "8%",
-                        backgroundColor: "#BCBFA7",
-                        borderRadius: 5,
-                        marginTop: 10,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <TouchableOpacity>
-                        <Text
-                          style={{
-                            fontFamily: "RobotoMono-Regular",
-                            fontSize: 12,
-                          }}
-                        >
-                          Search
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-
                     <FlatList
-                      style={{ marginTop: 20 }}
+                      style={{
+                        fontSize: 10,
+                        color: "#92B6B1",
+                        fontFamily: "RobotoMono-Regular",
+                        marginVertical: "5%",
+                        fontWeight: "200",
+                        alignSelf: "flex-start",
+                      }}
                       data={friends_search}
                       renderItem={renderUser}
                       keyExtractor={(item) => item.id}
