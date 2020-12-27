@@ -19,6 +19,7 @@ const WHITE = "white";
 const JournalDummy = [
   {
     id: 1,
+    author:'yy453@cornell.edu',
     title: "First journal entry",
     description: "today was a bad day, I did nothing, WAHHHH",
     created_at: "Dec 25, 2020",
@@ -28,6 +29,7 @@ const JournalDummy = [
   },
   {
     id: 2,
+    author:'yy453@cornell.edu',
     title: "Second journal entry",
     description: "mehhh",
     created_at: "Dec 25, 2020",
@@ -37,6 +39,7 @@ const JournalDummy = [
   },
   {
     id: 3,
+    author:'yy453@cornell.edu',
     title: "Third journal entry",
     description: "HEHEHEHE",
     created_at: "Dec 25, 2020",
@@ -46,6 +49,7 @@ const JournalDummy = [
   },
   {
     id: 4,
+    author:'yy453@cornell.edu',
     title: "Forth journal entry",
     description: "HEHEHEHE",
     created_at: "Dec 25, 2020",
@@ -123,20 +127,6 @@ const Card = ({ title, message, location, date }) => (
       {" "}
       {location}{" "}
     </Text>
-
-    {/* <View style={{ alignItems: "flex-end" }}>
-      <Text
-        style={{
-          fontSize: 10,
-          color: "#575632",
-          fontFamily: "Roboto",
-          alignItems: "center",
-        }}
-      >
-        {" "}
-        Created at {location}{" "}
-      </Text>
-    </View> */}
   </View>
 );
 
@@ -146,12 +136,14 @@ const Card = ({ title, message, location, date }) => (
 export default function Account({ navigation }) {
   const [friends, setFriends] = React.useState(0);
   const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={()=> navigation.push('journal-detail', item)}>
     <Card
       title={item.title}
       message={item.description}
       location={item.address}
       date={item.created_at}
     />
+    </TouchableOpacity>
   );
 
   return (

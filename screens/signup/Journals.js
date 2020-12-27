@@ -162,8 +162,10 @@ const Card = ({ title, author, location, date }) => (
  * Start screen component
  */
 export default function Journal({ navigation }) {
-  const [friends, setFriends] = React.useState(0);
   const renderItem = ({ item }) => (
+    <TouchableOpacity
+     onPress={()=> navigation.push("journal-detail", item)}
+    >
     <Card
       title={item.title}
       message={item.description}
@@ -171,6 +173,7 @@ export default function Journal({ navigation }) {
       date={item.created_at}
       author={item.author}
     />
+    </TouchableOpacity>
   );
 
   return (
