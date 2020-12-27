@@ -26,13 +26,13 @@ const WHITE = "white";
 const dummy_users = [
   {
     id: 1,
-    email: "person@cornell.edu",
-    friends: ["person1@cornell.edu", "person2@cornell.edu"],
+    email: "yl2795@cornell.edu",
+    friends: ["yy453@cornell.edu", "asz33@cornell.edu"],
   },
   {
     id: 2,
-    email: "person1@cornell.edu",
-    friends: ["person@cornell.edu"],
+    email: "yy453@cornell.edu",
+    friends: ["yl2795@cornell.edu"],
   },
 ];
 
