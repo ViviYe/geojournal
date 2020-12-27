@@ -2,13 +2,12 @@ import React from "react";
 import { View, Image, Text } from "react-native";
 import { StartScreenStyle } from "../../constants/Style";
 import LoginButton from "../../components/Buttons/loginButton";
-import { register } from "../../api/auth"
+import { register } from "../../api/auth";
 import Color from "../../constants/Colors";
 import { validate } from "validate.js";
 import constraints from "../../utils/constraints";
 import { showToast } from "../../utils/helpers";
 import { TextInput } from "react-native-paper";
-
 
 //path to logo
 //the shade of white we are using
@@ -22,7 +21,7 @@ export default function SignIn({ navigation }) {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
-    const onRegister = async () => {
+  const onRegister = async () => {
     let data = {
       email: email,
       password: password,
@@ -32,9 +31,9 @@ export default function SignIn({ navigation }) {
     if (validationResult) {
       showToast(validationResult[0]);
     } else {
-      register(email, password).then(res => navigation.push("signedin"))
-      .catch(err=> 
-        showToast(err.error));
+      register(email, password)
+        .then((res) => navigation.push("signedin"))
+        .catch((err) => showToast(err.error));
     }
   };
 
@@ -79,11 +78,7 @@ export default function SignIn({ navigation }) {
           onPress={onRegister}
           color="white"
           text="sign up"
-<<<<<<< HEAD
           background={Color.signUpBlue}
-=======
-          background="#5d6143"
->>>>>>> 464932a45df630fb45a98f62f1890c6d972245f3
         />
       </View>
     </View>
